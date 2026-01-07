@@ -22,9 +22,7 @@
 
 # PARAMETERS CELL ********************
 
-import json
-
-taxi_catalogs = json.loads('["yellow", "green"]')
+taxi_catalogs = '["yellow", "green"]'
 
 # METADATA ********************
 
@@ -36,14 +34,15 @@ taxi_catalogs = json.loads('["yellow", "green"]')
 # CELL ********************
 
 from pyspark.sql.functions import col, to_utc_timestamp, to_date, exists, lit, hour, day, replace, when, round, year, quarter,month, make_date, date_format, weekofyear, dayofyear, dayofmonth, dayofweek
-from pyspark.sql import functions as F, Window, Row, udf
+from pyspark.sql import functions as F, Window, Row
 from pyspark.sql.types import DoubleType, LongType, IntegerType
 from pyspark.errors import AnalysisException
 from datetime import datetime
 from dateutil.relativedelta import relativedelta
+import json
 
 bronze_lh = 'abfss://Itransition@onelake.dfs.fabric.microsoft.com/Bronze_Lakehouse.Lakehouse/'
-
+taxi_catalogs = json.loads(taxi_catalogs)
 begin_date = '2020-01-01'
 end_date = datetime.today().date() + relativedelta(years=1)
 
@@ -59,7 +58,7 @@ end_date = datetime.today().date() + relativedelta(years=1)
 def columnOrDefault(df, col_name: str, default_value, cast_type):
     return df.withColumn(col_name, round(F.abs(col(col_name)), 2) if col_name in df.columns else lit(default_value).cast(cast_type))
 
-@udf(returnType=DoubleType())
+@F.udf(returnType=DoubleType())
 def fahr_to_celsius(fahr):
     return (fahr - 32) * 5.0 / 9.0
 
@@ -129,8 +128,9 @@ def fill_missing_dates(df):
 
 # CELL ********************
 
+default_first = '1900-01.parquet'
 try:
-    meta_df = spark.sql("SELECT * FROM Silver_Lakehouse.dbo.Meta WHERE table_name='DimTrip'")
+    meta_df = spark.sql("SELECT * FROM Silver_Lakehouse.dbo.Meta")
 except AnalysisException:
     meta_df = spark.createDataFrame([
         Row(table_name='DimTrip', field_name='yellow', last='1900-01.parquet'),
@@ -139,16 +139,17 @@ for c in taxi_catalogs:
     try:
         last = meta_df.filter(meta_df.field_name == c).first().last
     except AttributeError:
-        last = '1900-01.parquet'
+        last = default_first
+        new_record = spark.createDataFrame([
+            Row(table_name='DimTrip', field_name=c, last=default_first),
+        ])
+        meta_df = meta_df.union(new_record)
     for f in notebookutils.fs.ls(bronze_lh + f'Files/{c}/'):
         if f.name > last:
             trip = spark.read.parquet(bronze_lh + f'Files/{c}/{f.name}')
             trip = clean_taxi(trip, c, f.name.split('.')[0])
             trip = filter_taxi(trip)
             trip.write.format('delta').mode('append').save('Tables/dbo/DimTrip')
-            
-            # new_last = datetime.strptime(last.split('.')[0], '%Y-%m').date() - relativedelta(months=1)
-            # new_last = f'{new_last.year}-{new_last.month:0>2}'
             
             meta_df = meta_df.withColumn('last',
                 when((meta_df['field_name'] == c) & (meta_df['table_name'] == 'DimTrip') , f.name).otherwise(meta_df['last']))

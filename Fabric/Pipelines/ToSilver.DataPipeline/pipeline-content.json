@@ -9,12 +9,16 @@
           "parameters": {
             "taxi_catalogs": {
               "value": {
-                "value": "['yellow', 'green']",
+                "value": "@string('[\"yellow\", \"green\"]')",
                 "type": "Expression"
               },
               "type": "string"
             }
-          }
+          },
+          "sessionTag": "TagToSilver"
+        },
+        "externalReferences": {
+          "connection": "0d3266d4-e3e1-435f-9692-f8ace1d0cec1"
         },
         "policy": {
           "timeout": "0.12:00:00",
@@ -25,6 +29,33 @@
         },
         "name": "StageIncrementally",
         "dependsOn": []
+      },
+      {
+        "type": "TridentNotebook",
+        "typeProperties": {
+          "notebookId": "14e2dd9e-b482-ad49-4c76-af7d2ee0fcf5",
+          "workspaceId": "00000000-0000-0000-0000-000000000000",
+          "sessionTag": "TagToSilver"
+        },
+        "externalReferences": {
+          "connection": "0d3266d4-e3e1-435f-9692-f8ace1d0cec1"
+        },
+        "policy": {
+          "timeout": "0.02:00:00",
+          "retry": 0,
+          "retryIntervalInSeconds": 30,
+          "secureInput": false,
+          "secureOutput": false
+        },
+        "name": "Check GX",
+        "dependsOn": [
+          {
+            "activity": "StageIncrementally",
+            "dependencyConditions": [
+              "Succeeded"
+            ]
+          }
+        ]
       }
     ],
     "libraryVariables": {
