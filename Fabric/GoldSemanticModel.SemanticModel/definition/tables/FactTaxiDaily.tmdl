@@ -17,7 +17,7 @@ table FactTaxiDaily
 	measure sum_fares_eur =
 			SUMX(
 			    'FactTaxiDaily',
-			    'FactTaxiDaily'[sum_fares] * RELATED('DimFX'[fx])
+			    'FactTaxiDaily'[sum_fares] / RELATED('DimFX'[fx])
 			)
 		lineageTag: 27106fa3-7a87-41e7-b4f2-fc8a801989a7
 
