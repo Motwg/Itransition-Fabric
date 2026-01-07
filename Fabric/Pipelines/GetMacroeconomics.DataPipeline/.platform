@@ -1,0 +1,11 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/gitIntegration/platformProperties/2.0.0/schema.json",
+  "metadata": {
+    "type": "DataPipeline",
+    "displayName": "GetMacroeconomics"
+  },
+  "config": {
+    "version": "2.0",
+    "logicalId": "02377a2f-b97d-8d23-49d6-9391fec3da0c"
+  }
+}

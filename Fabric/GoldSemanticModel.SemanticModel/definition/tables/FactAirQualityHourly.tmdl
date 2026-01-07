@@ -1,0 +1,114 @@
+table FactAirQualityHourly
+	lineageTag: b777770e-f12c-4000-bc27-46dd06cdb7fc
+	sourceLineageTag: [Gold].[FactAirQualityHourly]
+
+	column aq_daily_id
+		dataType: int64
+		formatString: 0
+		sourceProviderType: bigint
+		lineageTag: 309e72cc-2388-4870-bf44-18569e0b4c12
+		sourceLineageTag: aq_daily_id
+		summarizeBy: sum
+		sourceColumn: aq_daily_id
+
+		annotation SummarizationSetBy = Automatic
+
+	column zone_id
+		dataType: int64
+		formatString: 0
+		sourceProviderType: int
+		lineageTag: f6fcc3a6-feea-4f76-88e1-98ded945ffe7
+		sourceLineageTag: zone_id
+		summarizeBy: none
+		sourceColumn: zone_id
+
+		annotation SummarizationSetBy = Automatic
+
+	column fx_id
+		dataType: int64
+		formatString: 0
+		sourceProviderType: bigint
+		lineageTag: 3042299b-b5ad-4d78-8cf1-4428fd6c9239
+		sourceLineageTag: fx_id
+		summarizeBy: none
+		sourceColumn: fx_id
+
+		annotation SummarizationSetBy = Automatic
+
+	column gdp_id
+		dataType: int64
+		formatString: 0
+		sourceProviderType: bigint
+		lineageTag: 5107f666-3d79-41e8-9d51-ace3eb5f6d53
+		sourceLineageTag: gdp_id
+		summarizeBy: none
+		sourceColumn: gdp_id
+
+		annotation SummarizationSetBy = Automatic
+
+	column date
+		dataType: dateTime
+		formatString: General Date
+		sourceProviderType: date
+		lineageTag: 426b699b-d989-423e-aadd-f22f5a268a87
+		sourceLineageTag: date
+		summarizeBy: none
+		sourceColumn: date
+
+		annotation SummarizationSetBy = Automatic
+
+	column hour
+		dataType: int64
+		formatString: 0
+		sourceProviderType: int
+		lineageTag: c51d9050-2e38-4f13-b995-97a9f8d25262
+		sourceLineageTag: hour
+		summarizeBy: sum
+		sourceColumn: hour
+
+		annotation SummarizationSetBy = Automatic
+
+	column pm25
+		dataType: double
+		sourceProviderType: float
+		lineageTag: e53bcba2-7093-4718-b764-e5b151e6b86e
+		sourceLineageTag: pm25
+		summarizeBy: sum
+		sourceColumn: pm25
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column o3
+		dataType: double
+		sourceProviderType: float
+		lineageTag: 295a1db1-6c9e-425d-8f81-20eee80ef76f
+		sourceLineageTag: o3
+		summarizeBy: sum
+		sourceColumn: o3
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column weather_id
+		dataType: int64
+		formatString: 0
+		sourceProviderType: bigint
+		lineageTag: 56743fb8-90ed-4c0e-a65f-64f265f13cb7
+		sourceLineageTag: weather_id
+		summarizeBy: none
+		sourceColumn: weather_id
+
+		annotation SummarizationSetBy = Automatic
+
+	partition FactAirQualityHourly = entity
+		mode: directLake
+		source
+			entityName: FactAirQualityHourly
+			schemaName: Gold
+			expressionSource: DatabaseQuery
+
+	annotation PBI_ResultType = Table
+

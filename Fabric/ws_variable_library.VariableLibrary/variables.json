@@ -1,0 +1,17 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/variableLibrary/definition/variables/1.0.0/schema.json",
+  "variables": [
+    {
+      "name": "start_var_ym",
+      "note": "",
+      "type": "String",
+      "value": "2023-10"
+    },
+    {
+      "name": "taxi_datasets",
+      "note": "",
+      "type": "String",
+      "value": "['yellow', 'green']"
+    }
+  ]
+}

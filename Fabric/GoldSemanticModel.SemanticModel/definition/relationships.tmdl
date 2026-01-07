@@ -1,0 +1,80 @@
+relationship 10755834-0b86-213f-f204-76fabb57d1ff
+	fromColumn: FactAirQualityDaily.date
+	toColumn: DimDate.date
+
+relationship f8c164b6-9279-4703-d11a-25b11b70ea42
+	fromColumn: FactAirQualityDaily.gdp_id
+	toColumn: DimGDP.gdp_id
+
+relationship ddc51ddb-4453-9aa9-6f13-6fab5d1c236c
+	fromColumn: FactAirQualityDaily.zone_id
+	toColumn: DimZone.zone_id
+
+relationship 690ecb78-3266-2c72-3b89-6693fec365e5
+	fromColumn: FactTaxiDaily.date
+	toColumn: DimDate.date
+
+relationship bbbc4a8d-69af-328e-6718-4a404b732221
+	fromColumn: FactAirQualityDaily.fx_id
+	toColumn: DimFX.fx_id
+
+relationship b5f7925e-3c6a-7eb7-5e8e-3307ddacf386
+	fromColumn: FactTaxiDaily.fx_id
+	toColumn: DimFX.fx_id
+
+relationship f82bd13f-d378-7154-414f-e0398915630e
+	fromColumn: FactTaxiDaily.gdp_id
+	toColumn: DimGDP.gdp_id
+
+relationship 99a8c202-3ddf-d852-e0d2-01040855f363
+	fromColumn: FactTaxiDaily.zone_id
+	toColumn: DimZone.zone_id
+
+relationship d2c0d8aa-7d06-40c4-00b0-a772a7fcb351
+	fromColumn: FactAirQualityHourly.date
+	toColumn: DimDate.date
+
+relationship d0462f92-b1ce-5f45-7953-ce75e38c4ab9
+	fromColumn: FactAirQualityHourly.fx_id
+	toColumn: DimFX.fx_id
+
+relationship 6276179d-6629-4d5c-d698-b97cba4afa4f
+	fromColumn: FactAirQualityHourly.gdp_id
+	toColumn: DimGDP.gdp_id
+
+relationship a47c5f32-99ed-b0ca-93ed-d8255498e606
+	fromColumn: FactAirQualityHourly.zone_id
+	toColumn: DimZone.zone_id
+
+relationship 5732b4c9-ba6e-7f58-37f8-9ce5baf3d381
+	fromColumn: FactTaxiHourly.date
+	toColumn: DimDate.date
+
+relationship 95f537a1-385b-4be4-6ddf-e400e3a80042
+	fromColumn: FactTaxiHourly.fx_id
+	toColumn: DimFX.fx_id
+
+relationship d543a0c5-b481-315f-7457-a21748868b2d
+	fromColumn: FactTaxiHourly.gdp_id
+	toColumn: DimGDP.gdp_id
+
+relationship 5603c300-284d-ba0a-2938-9aabb0a1162a
+	fromColumn: FactTaxiHourly.zone_id
+	toColumn: DimZone.zone_id
+
+relationship 3c363415-53c8-f5b3-5aaa-e0743140ba57
+	fromColumn: FactAirQualityDaily.weather_id
+	toColumn: DimWeather.weather_id
+
+relationship c8a6dfdc-a3e3-0d5d-e8ad-27e75bda74cc
+	fromColumn: FactAirQualityHourly.weather_id
+	toColumn: DimWeather.weather_id
+
+relationship d5c31be1-244e-e717-bc4c-9e38fce5269f
+	fromColumn: FactTaxiDaily.weather_id
+	toColumn: DimWeather.weather_id
+
+relationship 6dd30b31-af1a-cbae-1258-3d6520a6acfd
+	fromColumn: FactTaxiHourly.weather_id
+	toColumn: DimWeather.weather_id
+

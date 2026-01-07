@@ -1,0 +1,170 @@
+{
+  "config": "{\"version\":\"5.69\",\"themeCollection\":{\"baseTheme\":{\"name\":\"CY25SU12\",\"type\":2,\"version\":{\"visual\":\"2.5.0\",\"report\":\"3.1.0\",\"page\":\"2.3.0\"}}},\"activeSectionIndex\":0,\"defaultDrillFilterOtherVisuals\":true,\"linguisticSchemaSyncVersion\":0,\"settings\":{\"useNewFilterPaneExperience\":true,\"allowChangeFilterTypes\":true,\"useStylableVisualContainerHeader\":true,\"queryLimitOption\":6,\"useEnhancedTooltips\":true,\"exportDataMode\":1,\"useDefaultAggregateDisplayName\":true,\"allowInlineExploration\":true},\"objects\":{\"section\":[{\"properties\":{\"verticalAlignment\":{\"expr\":{\"Literal\":{\"Value\":\"'Top'\"}}}}}],\"outspacePane\":[{\"properties\":{\"expanded\":{\"expr\":{\"Literal\":{\"Value\":\"false\"}}}}}]},\"creationSource\":\"QuickCreate\"}",
+  "filters": "[]",
+  "layoutOptimization": 1,
+  "pods": [
+    {
+      "boundSection": "b979689a98a75679eddd",
+      "config": "{}",
+      "name": "0b0bd340f2caedbfdc74"
+    }
+  ],
+  "publicCustomVisuals": [
+    "Timeline1447991079100"
+  ],
+  "resourcePackages": [
+    {
+      "resourcePackage": {
+        "disabled": false,
+        "items": [
+          {
+            "name": "CY25SU12",
+            "path": "BaseThemes/CY25SU12.json",
+            "type": 202
+          }
+        ],
+        "name": "SharedResources",
+        "type": 2
+      }
+    }
+  ],
+  "sections": [
+    {
+      "config": "{}",
+      "displayName": "Mobility",
+      "displayOption": 1,
+      "filters": "[]",
+      "height": 720.00,
+      "name": "b979689a98a75679eddd",
+      "visualContainers": [
+        {
+          "config": "{\"name\":\"08c6ff10545d0b7f56dc\",\"layouts\":[{\"id\":0,\"position\":{\"width\":289,\"height\":282,\"x\":971,\"y\":414,\"tabOrder\":0,\"z\":5000}},{\"id\":1,\"position\":{\"x\":8.498360655737704,\"y\":1071.7475409836065,\"z\":5000,\"width\":307.0032786885246,\"height\":299.56721311475405,\"tabOrder\":0}}],\"singleVisual\":{\"visualType\":\"clusteredBarChart\",\"projections\":{\"Category\":[{\"queryRef\":\"DimDate.day_name\",\"active\":true}],\"Y\":[{\"queryRef\":\"Sum(FactTaxiDaily.count_trips)\"}]},\"prototypeQuery\":{\"Version\":2,\"From\":[{\"Name\":\"f\",\"Entity\":\"FactTaxiDaily\",\"Type\":0},{\"Name\":\"d\",\"Entity\":\"DimDate\",\"Type\":0}],\"Select\":[{\"Aggregation\":{\"Expression\":{\"Column\":{\"Expression\":{\"SourceRef\":{\"Source\":\"f\"}},\"Property\":\"count_trips\"}},\"Function\":0},\"Name\":\"Sum(FactTaxiDaily.count_trips)\",\"NativeReferenceName\":\"Sum of count_trips\"},{\"Column\":{\"Expression\":{\"SourceRef\":{\"Source\":\"d\"}},\"Property\":\"day_name\"},\"Name\":\"DimDate.day_name\",\"NativeReferenceName\":\"Day of week\"}],\"OrderBy\":[{\"Direction\":2,\"Expression\":{\"Aggregation\":{\"Expression\":{\"Column\":{\"Expression\":{\"SourceRef\":{\"Source\":\"f\"}},\"Property\":\"count_trips\"}},\"Function\":0}}}]},\"columnProperties\":{\"DimDate.day_name\":{\"displayName\":\"Day of week\"}},\"drillFilterOtherVisuals\":true,\"hasDefaultSort\":true,\"objects\":{\"categoryAxis\":[{\"properties\":{\"axisType\":{\"expr\":{\"Literal\":{\"Value\":\"'Categorical'\"}}}}}],\"labels\":[{\"properties\":{\"show\":{\"expr\":{\"Literal\":{\"Value\":\"true\"}}}}}],\"dataPoint\":[{\"properties\":{\"fill\":{\"solid\":{\"color\":{\"expr\":{\"ThemeDataColor\":{\"ColorId\":5,\"Percent\":0}}}}}}}],\"valueAxis\":[{\"properties\":{\"showAxisTitle\":{\"expr\":{\"Literal\":{\"Value\":\"false\"}}}}}]},\"vcObjects\":{\"visualHeader\":[{\"properties\":{\"showCopyVisualImageButton\":{\"expr\":{\"Literal\":{\"Value\":\"false\"}}},\"showFilterRestatementButton\":{\"expr\":{\"Literal\":{\"Value\":\"false\"}}},\"showFocusModeButton\":{\"expr\":{\"Literal\":{\"Value\":\"false\"}}},\"showPinButton\":{\"expr\":{\"Literal\":{\"Value\":\"false\"}}}}}],\"title\":[{\"properties\":{\"text\":{\"expr\":{\"Literal\":{\"Value\":\"'Trips by day of week'\"}}}}}]}}}",
+          "filters": "[]",
+          "height": 282.00,
+          "width": 289.00,
+          "x": 971.00,
+          "y": 414.00,
+          "z": 5000.00
+        },
+        {
+          "config": "{\"name\":\"17fb7657b6202f8c41a6\",\"layouts\":[{\"id\":0,\"position\":{\"width\":622,\"height\":306,\"x\":646,\"y\":84,\"tabOrder\":-3000,\"z\":2000}},{\"id\":1,\"position\":{\"x\":0,\"y\":527,\"z\":2000,\"width\":324,\"height\":191.4936305732484,\"tabOrder\":-3000}}],\"singleVisual\":{\"visualType\":\"shape\",\"drillFilterOtherVisuals\":true,\"objects\":{\"fill\":[{\"properties\":{\"show\":{\"expr\":{\"Literal\":{\"Value\":\"false\"}}}}}],\"outline\":[{\"properties\":{\"show\":{\"expr\":{\"Literal\":{\"Value\":\"false\"}}}}}],\"shape\":[{\"properties\":{\"tileShape\":{\"expr\":{\"Literal\":{\"Value\":\"'rectangle'\"}}}}}]},\"vcObjects\":{\"border\":[{\"properties\":{\"show\":{\"expr\":{\"Literal\":{\"Value\":\"true\"}}},\"radius\":{\"expr\":{\"Literal\":{\"Value\":\"4M\"}}},\"color\":{\"solid\":{\"color\":{\"expr\":{\"Literal\":{\"Value\":\"'#E6E6E6'\"}}}}}}}],\"dropShadow\":[{\"properties\":{\"show\":{\"expr\":{\"Literal\":{\"Value\":\"true\"}}},\"preset\":{\"expr\":{\"Literal\":{\"Value\":\"'Custom'\"}}},\"shadowBlur\":{\"expr\":{\"Literal\":{\"Value\":\"3M\"}}},\"shadowDistance\":{\"expr\":{\"Literal\":{\"Value\":\"1M\"}}},\"shadowSpread\":{\"expr\":{\"Literal\":{\"Value\":\"1M\"}}},\"transparency\":{\"expr\":{\"Literal\":{\"Value\":\"87M\"}}}}}]}}}",
+          "filters": "[]",
+          "height": 306.00,
+          "width": 622.00,
+          "x": 646.00,
+          "y": 84.00,
+          "z": 2000.00
+        },
+        {
+          "config": "{\"name\":\"296d5bb94a3d96476435\",\"layouts\":[{\"id\":0,\"position\":{\"x\":12,\"y\":2,\"height\":39,\"width\":306,\"tabOrder\":6000,\"z\":11000}},{\"id\":1,\"position\":{\"x\":0,\"y\":0,\"z\":15000,\"width\":324,\"height\":41,\"tabOrder\":10000}}],\"singleVisual\":{\"visualType\":\"textbox\",\"drillFilterOtherVisuals\":true,\"objects\":{\"general\":[{\"properties\":{\"paragraphs\":[{\"textRuns\":[{\"value\":\"Mobility\",\"textStyle\":{\"fontSize\":\"16pt\"}}]}]}}]},\"vcObjects\":{}}}",
+          "filters": "[]",
+          "height": 39.00,
+          "width": 306.00,
+          "x": 12.00,
+          "y": 2.00,
+          "z": 11000.00
+        },
+        {
+          "config": "{\"name\":\"2a076cc6ba10803c5764\",\"layouts\":[{\"id\":0,\"position\":{\"width\":305,\"height\":306,\"x\":963,\"y\":402,\"tabOrder\":-5000,\"z\":4000}},{\"id\":1,\"position\":{\"x\":0,\"y\":1059,\"z\":4000,\"width\":323.99999999999994,\"height\":325.0622950819672,\"tabOrder\":-5000}}],\"singleVisual\":{\"visualType\":\"shape\",\"drillFilterOtherVisuals\":true,\"objects\":{\"fill\":[{\"properties\":{\"show\":{\"expr\":{\"Literal\":{\"Value\":\"false\"}}}}}],\"outline\":[{\"properties\":{\"show\":{\"expr\":{\"Literal\":{\"Value\":\"false\"}}}}}],\"shape\":[{\"properties\":{\"tileShape\":{\"expr\":{\"Literal\":{\"Value\":\"'rectangle'\"}}}}}]},\"vcObjects\":{\"border\":[{\"properties\":{\"show\":{\"expr\":{\"Literal\":{\"Value\":\"true\"}}},\"radius\":{\"expr\":{\"Literal\":{\"Value\":\"4M\"}}},\"color\":{\"solid\":{\"color\":{\"expr\":{\"Literal\":{\"Value\":\"'#E6E6E6'\"}}}}}}}],\"dropShadow\":[{\"properties\":{\"show\":{\"expr\":{\"Literal\":{\"Value\":\"true\"}}},\"preset\":{\"expr\":{\"Literal\":{\"Value\":\"'Custom'\"}}},\"shadowBlur\":{\"expr\":{\"Literal\":{\"Value\":\"3M\"}}},\"shadowDistance\":{\"expr\":{\"Literal\":{\"Value\":\"1M\"}}},\"shadowSpread\":{\"expr\":{\"Literal\":{\"Value\":\"1M\"}}},\"transparency\":{\"expr\":{\"Literal\":{\"Value\":\"87M\"}}}}}]}}}",
+          "filters": "[]",
+          "height": 306.00,
+          "width": 305.00,
+          "x": 963.00,
+          "y": 402.00,
+          "z": 4000.00
+        },
+        {
+          "config": "{\"name\":\"39dc348b4096db1af901\",\"layouts\":[{\"id\":0,\"position\":{\"x\":12,\"y\":58,\"height\":26,\"width\":1256,\"tabOrder\":-1000,\"z\":0}},{\"id\":1,\"position\":{\"x\":0,\"y\":160,\"z\":0,\"width\":324,\"height\":26,\"tabOrder\":-1000}}],\"singleVisual\":{\"visualType\":\"shape\",\"drillFilterOtherVisuals\":true,\"objects\":{\"outline\":[{\"properties\":{\"lineColor\":{\"solid\":{\"color\":{\"expr\":{\"ThemeDataColor\":{\"ColorId\":0,\"Percent\":-0.1}}}}},\"weight\":{\"expr\":{\"Literal\":{\"Value\":\"1M\"}}}},\"selector\":{\"id\":\"default\"}}],\"rotation\":[{\"properties\":{\"shapeAngle\":{\"expr\":{\"Literal\":{\"Value\":\"0L\"}}}}}],\"shape\":[{\"properties\":{\"tileShape\":{\"expr\":{\"Literal\":{\"Value\":\"'line'\"}}}}}]},\"vcObjects\":{\"background\":[{\"properties\":{\"show\":{\"expr\":{\"Literal\":{\"Value\":\"false\"}}}}}],\"title\":[{\"properties\":{\"show\":{\"expr\":{\"Literal\":{\"Value\":\"false\"}}}}}]}}}",
+          "filters": "[]",
+          "height": 26.00,
+          "width": 1256.00,
+          "x": 12.00,
+          "y": 58.00,
+          "z": 0.00
+        },
+        {
+          "config": "{\"name\":\"3c0a5d72f1b7c86f07bf\",\"layouts\":[{\"id\":0,\"position\":{\"x\":654.9618320610688,\"y\":413.12977099236645,\"z\":13000,\"width\":288.5496183206107,\"height\":282.1374045801527,\"tabOrder\":8000}},{\"id\":1,\"position\":{\"x\":9.520110123889452,\"y\":737.8231009886122,\"z\":15003,\"width\":306.5248404455012,\"height\":299.71317732449006,\"tabOrder\":10002}}],\"singleVisual\":{\"visualType\":\"clusteredBarChart\",\"projections\":{\"Category\":[{\"queryRef\":\"DimDate.day_name\",\"active\":true}],\"Y\":[{\"queryRef\":\"Sum(FactTaxiDaily.count_trips)\"}]},\"prototypeQuery\":{\"Version\":2,\"From\":[{\"Name\":\"f\",\"Entity\":\"FactTaxiDaily\",\"Type\":0},{\"Name\":\"d\",\"Entity\":\"DimDate\",\"Type\":0}],\"Select\":[{\"Aggregation\":{\"Expression\":{\"Column\":{\"Expression\":{\"SourceRef\":{\"Source\":\"f\"}},\"Property\":\"count_trips\"}},\"Function\":0},\"Name\":\"Sum(FactTaxiDaily.count_trips)\",\"NativeReferenceName\":\"Sum of count_trips\"},{\"Column\":{\"Expression\":{\"SourceRef\":{\"Source\":\"d\"}},\"Property\":\"day_name\"},\"Name\":\"DimDate.day_name\",\"NativeReferenceName\":\"Day of week\"}],\"OrderBy\":[{\"Direction\":2,\"Expression\":{\"Aggregation\":{\"Expression\":{\"Column\":{\"Expression\":{\"SourceRef\":{\"Source\":\"f\"}},\"Property\":\"count_trips\"}},\"Function\":0}}}]},\"columnProperties\":{\"DimDate.day_name\":{\"displayName\":\"Day of week\"}},\"drillFilterOtherVisuals\":true,\"hasDefaultSort\":true,\"objects\":{\"categoryAxis\":[{\"properties\":{\"axisType\":{\"expr\":{\"Literal\":{\"Value\":\"'Categorical'\"}}}}}],\"labels\":[{\"properties\":{\"show\":{\"expr\":{\"Literal\":{\"Value\":\"true\"}}}}}],\"dataPoint\":[{\"properties\":{\"fill\":{\"solid\":{\"color\":{\"expr\":{\"ThemeDataColor\":{\"ColorId\":5,\"Percent\":0}}}}}}}],\"valueAxis\":[{\"properties\":{\"showAxisTitle\":{\"expr\":{\"Literal\":{\"Value\":\"false\"}}}}}]},\"vcObjects\":{\"visualHeader\":[{\"properties\":{\"showCopyVisualImageButton\":{\"expr\":{\"Literal\":{\"Value\":\"false\"}}},\"showFilterRestatementButton\":{\"expr\":{\"Literal\":{\"Value\":\"false\"}}},\"showFocusModeButton\":{\"expr\":{\"Literal\":{\"Value\":\"false\"}}},\"showPinButton\":{\"expr\":{\"Literal\":{\"Value\":\"false\"}}}}}],\"title\":[{\"properties\":{\"text\":{\"expr\":{\"Literal\":{\"Value\":\"'Trips by month'\"}}}}}]}}}",
+          "filters": "[]",
+          "height": 282.14,
+          "width": 288.55,
+          "x": 654.96,
+          "y": 413.13,
+          "z": 13000.00
+        },
+        {
+          "config": "{\"name\":\"3ef8dfcd135813be8ba0\",\"layouts\":[{\"id\":0,\"position\":{\"width\":305,\"height\":306,\"x\":646,\"y\":402,\"tabOrder\":-4000,\"z\":3000}},{\"id\":1,\"position\":{\"x\":0,\"y\":726,\"z\":3000,\"width\":323.99999999999994,\"height\":325.0622950819672,\"tabOrder\":-4000}}],\"singleVisual\":{\"visualType\":\"shape\",\"drillFilterOtherVisuals\":true,\"objects\":{\"fill\":[{\"properties\":{\"show\":{\"expr\":{\"Literal\":{\"Value\":\"false\"}}}}}],\"outline\":[{\"properties\":{\"show\":{\"expr\":{\"Literal\":{\"Value\":\"false\"}}}}}],\"shape\":[{\"properties\":{\"tileShape\":{\"expr\":{\"Literal\":{\"Value\":\"'rectangle'\"}}}}}]},\"vcObjects\":{\"border\":[{\"properties\":{\"show\":{\"expr\":{\"Literal\":{\"Value\":\"true\"}}},\"radius\":{\"expr\":{\"Literal\":{\"Value\":\"4M\"}}},\"color\":{\"solid\":{\"color\":{\"expr\":{\"Literal\":{\"Value\":\"'#E6E6E6'\"}}}}}}}],\"dropShadow\":[{\"properties\":{\"show\":{\"expr\":{\"Literal\":{\"Value\":\"true\"}}},\"preset\":{\"expr\":{\"Literal\":{\"Value\":\"'Custom'\"}}},\"shadowBlur\":{\"expr\":{\"Literal\":{\"Value\":\"3M\"}}},\"shadowDistance\":{\"expr\":{\"Literal\":{\"Value\":\"1M\"}}},\"shadowSpread\":{\"expr\":{\"Literal\":{\"Value\":\"1M\"}}},\"transparency\":{\"expr\":{\"Literal\":{\"Value\":\"87M\"}}}}}]}}}",
+          "filters": "[]",
+          "height": 306.00,
+          "width": 305.00,
+          "x": 646.00,
+          "y": 402.00,
+          "z": 3000.00
+        },
+        {
+          "config": "{\"name\":\"6ffadb849e58d3194c0a\",\"layouts\":[{\"id\":0,\"position\":{\"x\":11.908396946564887,\"y\":574.3511450381679,\"z\":12000,\"width\":621.9847328244275,\"height\":133.7404580152672,\"tabOrder\":7000}},{\"id\":1,\"position\":{\"x\":0,\"y\":434.59665742263235,\"z\":15002,\"width\":323.94433946057376,\"height\":84.44498981520113,\"tabOrder\":10001}}],\"singleVisual\":{\"visualType\":\"Timeline1447991079100\",\"projections\":{\"Time\":[{\"queryRef\":\"DimDate.date\"}]},\"prototypeQuery\":{\"Version\":2,\"From\":[{\"Name\":\"d\",\"Entity\":\"DimDate\",\"Type\":0}],\"Select\":[{\"Column\":{\"Expression\":{\"SourceRef\":{\"Source\":\"d\"}},\"Property\":\"date\"},\"Name\":\"DimDate.date\",\"NativeReferenceName\":\"date\"}],\"OrderBy\":[{\"Direction\":1,\"Expression\":{\"Column\":{\"Expression\":{\"SourceRef\":{\"Source\":\"d\"}},\"Property\":\"date\"}}}]},\"drillFilterOtherVisuals\":true,\"hasDefaultSort\":true,\"objects\":{\"granularity\":[{\"properties\":{\"granularity\":{\"expr\":{\"Literal\":{\"Value\":\"0D\"}}}}}],\"general\":[{\"properties\":{}}],\"weekDay\":[{\"properties\":{\"daySelection\":{\"expr\":{\"Literal\":{\"Value\":\"true\"}}}}}]},\"vcObjects\":{\"title\":[{\"properties\":{\"show\":{\"expr\":{\"Literal\":{\"Value\":\"false\"}}}}}]}}}",
+          "filters": "[]",
+          "height": 133.74,
+          "width": 621.98,
+          "x": 11.91,
+          "y": 574.35,
+          "z": 12000.00
+        },
+        {
+          "config": "{\"name\":\"7f9a4823a99030dda2d1\",\"layouts\":[{\"id\":0,\"position\":{\"x\":20.152671755725194,\"y\":96.18320610687024,\"z\":7000,\"width\":605.4961832061069,\"height\":478.1679389312978,\"tabOrder\":2000}},{\"id\":1,\"position\":{\"x\":1,\"y\":200,\"z\":9000,\"width\":316,\"height\":239,\"tabOrder\":4000}}],\"singleVisual\":{\"visualType\":\"columnChart\",\"projections\":{\"Category\":[{\"queryRef\":\"DimDate.date\",\"active\":true}],\"Y\":[{\"queryRef\":\"Sum(FactTaxiDaily.count_trips)\"}],\"Series\":[{\"queryRef\":\"DimZone.borough\"}]},\"prototypeQuery\":{\"Version\":2,\"From\":[{\"Name\":\"d1\",\"Entity\":\"DimDate\",\"Type\":0},{\"Name\":\"f\",\"Entity\":\"FactTaxiDaily\",\"Type\":0},{\"Name\":\"d\",\"Entity\":\"DimZone\",\"Type\":0}],\"Select\":[{\"Column\":{\"Expression\":{\"SourceRef\":{\"Source\":\"d1\"}},\"Property\":\"date\"},\"Name\":\"DimDate.date\",\"NativeReferenceName\":\"date\"},{\"Aggregation\":{\"Expression\":{\"Column\":{\"Expression\":{\"SourceRef\":{\"Source\":\"f\"}},\"Property\":\"count_trips\"}},\"Function\":0},\"Name\":\"Sum(FactTaxiDaily.count_trips)\",\"NativeReferenceName\":\"Sum of count_trips\"},{\"Column\":{\"Expression\":{\"SourceRef\":{\"Source\":\"d\"}},\"Property\":\"borough\"},\"Name\":\"DimZone.borough\",\"NativeReferenceName\":\"borough\"}],\"OrderBy\":[{\"Direction\":1,\"Expression\":{\"Column\":{\"Expression\":{\"SourceRef\":{\"Source\":\"d1\"}},\"Property\":\"date\"}}}]},\"columnProperties\":{\"Sum(FactTaxiDaily.count_trips)\":{\"displayName\":\"Sum of count_trips\"}},\"drillFilterOtherVisuals\":true,\"hasDefaultSort\":true,\"objects\":{\"categoryAxis\":[{\"properties\":{\"axisType\":{\"expr\":{\"Literal\":{\"Value\":\"'Categorical'\"}}}}}],\"labels\":[{\"properties\":{\"show\":{\"expr\":{\"Literal\":{\"Value\":\"true\"}}}}}],\"dataPoint\":[{\"properties\":{\"fill\":{\"solid\":{\"color\":{\"expr\":{\"ThemeDataColor\":{\"ColorId\":2,\"Percent\":0}}}}}}}],\"valueAxis\":[{\"properties\":{\"titleText\":{\"expr\":{\"Literal\":{\"Value\":\"'Trips'\"}}}}}]},\"vcObjects\":{\"visualHeader\":[{\"properties\":{\"showCopyVisualImageButton\":{\"expr\":{\"Literal\":{\"Value\":\"false\"}}},\"showFilterRestatementButton\":{\"expr\":{\"Literal\":{\"Value\":\"false\"}}},\"showFocusModeButton\":{\"expr\":{\"Literal\":{\"Value\":\"false\"}}},\"showPinButton\":{\"expr\":{\"Literal\":{\"Value\":\"false\"}}}}}],\"title\":[{\"properties\":{\"text\":{\"expr\":{\"Literal\":{\"Value\":\"'Trips by date and borough'\"}}}}}],\"divider\":[{\"properties\":{\"show\":{\"expr\":{\"Literal\":{\"Value\":\"false\"}}}}}]}}}",
+          "filters": "[]",
+          "height": 478.17,
+          "width": 605.50,
+          "x": 20.15,
+          "y": 96.18,
+          "z": 7000.00
+        },
+        {
+          "config": "{\"name\":\"82006f83f3b0e8236020\",\"layouts\":[{\"id\":0,\"position\":{\"x\":653.1297709923665,\"y\":96.18320610687024,\"z\":6000,\"width\":614.6564885496184,\"height\":287.63358778625957,\"tabOrder\":1000}},{\"id\":1,\"position\":{\"x\":3.7139000024545767,\"y\":534.624203821656,\"z\":7000,\"width\":320.17476252423853,\"height\":180,\"tabOrder\":2000}}],\"singleVisual\":{\"visualType\":\"clusteredBarChart\",\"projections\":{\"Category\":[{\"queryRef\":\"DimZone.borough\",\"active\":true}],\"Y\":[{\"queryRef\":\"Sum(FactTaxiDaily.sum_fares)\"},{\"queryRef\":\"Sum(FactTaxiDaily.sum_total)\"}]},\"prototypeQuery\":{\"Version\":2,\"From\":[{\"Name\":\"d\",\"Entity\":\"DimZone\",\"Type\":0},{\"Name\":\"f\",\"Entity\":\"FactTaxiDaily\",\"Type\":0}],\"Select\":[{\"Column\":{\"Expression\":{\"SourceRef\":{\"Source\":\"d\"}},\"Property\":\"borough\"},\"Name\":\"DimZone.borough\",\"NativeReferenceName\":\"borough\"},{\"Aggregation\":{\"Expression\":{\"Column\":{\"Expression\":{\"SourceRef\":{\"Source\":\"f\"}},\"Property\":\"sum_fares\"}},\"Function\":0},\"Name\":\"Sum(FactTaxiDaily.sum_fares)\",\"NativeReferenceName\":\"without extra costs\"},{\"Aggregation\":{\"Expression\":{\"Column\":{\"Expression\":{\"SourceRef\":{\"Source\":\"f\"}},\"Property\":\"sum_total\"}},\"Function\":0},\"Name\":\"Sum(FactTaxiDaily.sum_total)\",\"NativeReferenceName\":\"with extra costs\"}],\"OrderBy\":[{\"Direction\":2,\"Expression\":{\"Aggregation\":{\"Expression\":{\"Column\":{\"Expression\":{\"SourceRef\":{\"Source\":\"f\"}},\"Property\":\"sum_fares\"}},\"Function\":0}}}]},\"columnProperties\":{\"Sum(FactTaxiDaily.sum_fares)\":{\"displayName\":\"without extra costs\"},\"Sum(FactTaxiDaily.sum_total)\":{\"displayName\":\"with extra costs\"}},\"drillFilterOtherVisuals\":true,\"objects\":{\"categoryAxis\":[{\"properties\":{\"axisType\":{\"expr\":{\"Literal\":{\"Value\":\"'Categorical'\"}}}}}],\"labels\":[{\"properties\":{\"show\":{\"expr\":{\"Literal\":{\"Value\":\"true\"}}},\"enableTitleDataLabel\":{\"expr\":{\"Literal\":{\"Value\":\"false\"}}}}},{\"properties\":{\"enableValueDataLabel\":{\"expr\":{\"Literal\":{\"Value\":\"true\"}}},\"showSeries\":{\"expr\":{\"Literal\":{\"Value\":\"true\"}}}},\"selector\":{\"metadata\":\"Sum(FactTaxiDaily.sum_fares)\"}}],\"dataPoint\":[{\"properties\":{\"fill\":{\"solid\":{\"color\":{\"expr\":{\"ThemeDataColor\":{\"ColorId\":3,\"Percent\":0}}}}}}}],\"legend\":[{\"properties\":{\"showTitle\":{\"expr\":{\"Literal\":{\"Value\":\"false\"}}}}}],\"valueAxis\":[{\"properties\":{\"showAxisTitle\":{\"expr\":{\"Literal\":{\"Value\":\"false\"}}}}}]},\"vcObjects\":{\"visualHeader\":[{\"properties\":{\"showCopyVisualImageButton\":{\"expr\":{\"Literal\":{\"Value\":\"false\"}}},\"showFilterRestatementButton\":{\"expr\":{\"Literal\":{\"Value\":\"false\"}}},\"showFocusModeButton\":{\"expr\":{\"Literal\":{\"Value\":\"false\"}}},\"showPinButton\":{\"expr\":{\"Literal\":{\"Value\":\"false\"}}}}}],\"title\":[{\"properties\":{\"text\":{\"expr\":{\"Literal\":{\"Value\":\"'Sum of fares'\"}}}}}]}}}",
+          "filters": "[]",
+          "height": 287.63,
+          "width": 614.66,
+          "x": 653.13,
+          "y": 96.18,
+          "z": 6000.00
+        },
+        {
+          "config": "{\"name\":\"b1f991810d80d1244d10\",\"layouts\":[{\"id\":0,\"position\":{\"x\":820,\"y\":8,\"z\":8000,\"width\":448,\"height\":50,\"tabOrder\":3000}},{\"id\":1,\"position\":{\"x\":166,\"y\":49,\"z\":12000,\"width\":154,\"height\":151,\"tabOrder\":7000}}],\"singleVisual\":{\"visualType\":\"multiRowCard\",\"projections\":{\"Values\":[{\"queryRef\":\"Sum(FactTaxiDaily.sum_fares)\"},{\"queryRef\":\"Avg(FactTaxiDaily.sum_fares)\"},{\"queryRef\":\"Sum(FactTaxiDaily.sum_total)\"}]},\"prototypeQuery\":{\"Version\":2,\"From\":[{\"Name\":\"f\",\"Entity\":\"FactTaxiDaily\",\"Type\":0}],\"Select\":[{\"Aggregation\":{\"Expression\":{\"Column\":{\"Expression\":{\"SourceRef\":{\"Source\":\"f\"}},\"Property\":\"sum_fares\"}},\"Function\":0},\"Name\":\"Sum(FactTaxiDaily.sum_fares)\",\"NativeReferenceName\":\"Total fares\"},{\"Aggregation\":{\"Expression\":{\"Column\":{\"Expression\":{\"SourceRef\":{\"Source\":\"f\"}},\"Property\":\"sum_total\"}},\"Function\":0},\"Name\":\"Sum(FactTaxiDaily.sum_total)\",\"NativeReferenceName\":\"with extra costs\"},{\"Aggregation\":{\"Expression\":{\"Column\":{\"Expression\":{\"SourceRef\":{\"Source\":\"f\"}},\"Property\":\"sum_fares\"}},\"Function\":1},\"Name\":\"Avg(FactTaxiDaily.sum_fares)\",\"NativeReferenceName\":\"Daily average\"}],\"OrderBy\":[{\"Direction\":2,\"Expression\":{\"Aggregation\":{\"Expression\":{\"Column\":{\"Expression\":{\"SourceRef\":{\"Source\":\"f\"}},\"Property\":\"sum_fares\"}},\"Function\":0}}}]},\"columnProperties\":{\"Sum(FactTaxiDaily.sum_fares)\":{\"displayName\":\"Total fares\",\"formatString\":\"\\\\$#,0;(\\\\$#,0);\\\\$#,0\"},\"Sum(FactTaxiDaily.sum_total)\":{\"displayName\":\"with extra costs\",\"formatString\":\"\\\\$#,0;(\\\\$#,0);\\\\$#,0\"},\"Avg(FactTaxiDaily.sum_fares)\":{\"displayName\":\"Daily average\",\"formatString\":\"\\\\$#,0;(\\\\$#,0);\\\\$#,0\"}},\"drillFilterOtherVisuals\":true,\"hasDefaultSort\":true,\"objects\":{\"card\":[{\"properties\":{\"barColor\":{\"solid\":{\"color\":{\"expr\":{\"ThemeDataColor\":{\"ColorId\":3,\"Percent\":0}}}}},\"barWeight\":{\"expr\":{\"Literal\":{\"Value\":\"4L\"}}}}}],\"dataLabels\":[{\"properties\":{\"fontFamily\":{\"expr\":{\"Literal\":{\"Value\":\"'Segoe UI'\"}}},\"fontSize\":{\"expr\":{\"Literal\":{\"Value\":\"11L\"}}}}}],\"categoryLabels\":[{\"properties\":{\"color\":{\"solid\":{\"color\":{\"expr\":{\"ThemeDataColor\":{\"ColorId\":1,\"Percent\":0.4}}}}},\"fontSize\":{\"expr\":{\"Literal\":{\"Value\":\"11L\"}}}}}]},\"vcObjects\":{\"visualHeader\":[{\"properties\":{\"showCopyVisualImageButton\":{\"expr\":{\"Literal\":{\"Value\":\"false\"}}},\"showFilterRestatementButton\":{\"expr\":{\"Literal\":{\"Value\":\"false\"}}},\"showFocusModeButton\":{\"expr\":{\"Literal\":{\"Value\":\"false\"}}},\"showPinButton\":{\"expr\":{\"Literal\":{\"Value\":\"false\"}}},\"showPersonalizeVisualButton\":{\"expr\":{\"Literal\":{\"Value\":\"false\"}}}}}]}}}",
+          "filters": "[]",
+          "height": 50.00,
+          "width": 448.00,
+          "x": 820.00,
+          "y": 8.00,
+          "z": 8000.00
+        },
+        {
+          "config": "{\"name\":\"c4857953322cfaa9f8ff\",\"layouts\":[{\"id\":0,\"position\":{\"x\":12,\"y\":33,\"height\":32,\"width\":306,\"tabOrder\":5000,\"z\":10000}},{\"id\":1,\"position\":{\"x\":1,\"y\":41,\"z\":15004,\"width\":158,\"height\":56}}],\"singleVisual\":{\"visualType\":\"textbox\",\"drillFilterOtherVisuals\":true,\"objects\":{\"general\":[{\"properties\":{\"paragraphs\":[{\"textRuns\":[{\"value\":\"Taxi trips in NYC\",\"textStyle\":{\"fontSize\":\"12pt\",\"color\":\"#605e5c\"}}]}]}}]},\"vcObjects\":{}}}",
+          "filters": "[]",
+          "height": 32.00,
+          "width": 306.00,
+          "x": 12.00,
+          "y": 33.00,
+          "z": 10000.00
+        },
+        {
+          "config": "{\"name\":\"d94f6fb7414273230115\",\"layouts\":[{\"id\":0,\"position\":{\"x\":520.3053435114505,\"y\":10.076335877862597,\"z\":9000,\"width\":299.54198473282446,\"height\":61.37404580152673,\"tabOrder\":4000}},{\"id\":1,\"position\":{\"x\":0,\"y\":97,\"z\":13000,\"width\":150,\"height\":103,\"tabOrder\":8000}}],\"singleVisual\":{\"visualType\":\"multiRowCard\",\"projections\":{\"Values\":[{\"queryRef\":\"Sum(FactTaxiDaily.count_trips)\"},{\"queryRef\":\"FactTaxiDaily.Avg. Trips per Day\"}]},\"prototypeQuery\":{\"Version\":2,\"From\":[{\"Name\":\"f\",\"Entity\":\"FactTaxiDaily\",\"Type\":0}],\"Select\":[{\"Aggregation\":{\"Expression\":{\"Column\":{\"Expression\":{\"SourceRef\":{\"Source\":\"f\"}},\"Property\":\"count_trips\"}},\"Function\":0},\"Name\":\"Sum(FactTaxiDaily.count_trips)\",\"NativeReferenceName\":\"Sum of count_trips\"},{\"Measure\":{\"Expression\":{\"SourceRef\":{\"Source\":\"f\"}},\"Property\":\"Avg. Trips per Day\"},\"Name\":\"FactTaxiDaily.Avg. Trips per Day\",\"NativeReferenceName\":\"Daily average\"}],\"OrderBy\":[{\"Direction\":2,\"Expression\":{\"Aggregation\":{\"Expression\":{\"Column\":{\"Expression\":{\"SourceRef\":{\"Source\":\"f\"}},\"Property\":\"count_trips\"}},\"Function\":0}}}]},\"columnProperties\":{\"Sum(FactTaxiDaily.count_trips)\":{\"displayName\":\"Trips\"},\"Avg(FactTaxiDaily.count_trips)\":{\"displayName\":\"Average\"},\"FactTaxiDaily.Avg. Trips per Day\":{\"formatString\":\"0\",\"displayName\":\"Daily average\"}},\"drillFilterOtherVisuals\":true,\"hasDefaultSort\":true,\"objects\":{\"card\":[{\"properties\":{\"barColor\":{\"solid\":{\"color\":{\"expr\":{\"ThemeDataColor\":{\"ColorId\":2,\"Percent\":0}}}}},\"barWeight\":{\"expr\":{\"Literal\":{\"Value\":\"4L\"}}},\"outlineStyle\":{\"expr\":{\"Literal\":{\"Value\":\"0D\"}}}}}],\"dataLabels\":[{\"properties\":{\"fontFamily\":{\"expr\":{\"Literal\":{\"Value\":\"'Segoe UI'\"}}},\"fontSize\":{\"expr\":{\"Literal\":{\"Value\":\"11L\"}}}}}],\"categoryLabels\":[{\"properties\":{\"color\":{\"solid\":{\"color\":{\"expr\":{\"ThemeDataColor\":{\"ColorId\":1,\"Percent\":0.4}}}}},\"fontSize\":{\"expr\":{\"Literal\":{\"Value\":\"11L\"}}}}}]},\"vcObjects\":{\"visualHeader\":[{\"properties\":{\"showCopyVisualImageButton\":{\"expr\":{\"Literal\":{\"Value\":\"false\"}}},\"showFilterRestatementButton\":{\"expr\":{\"Literal\":{\"Value\":\"false\"}}},\"showFocusModeButton\":{\"expr\":{\"Literal\":{\"Value\":\"false\"}}},\"showPinButton\":{\"expr\":{\"Literal\":{\"Value\":\"false\"}}},\"showPersonalizeVisualButton\":{\"expr\":{\"Literal\":{\"Value\":\"false\"}}}}}]}}}",
+          "filters": "[]",
+          "height": 61.37,
+          "width": 299.54,
+          "x": 520.31,
+          "y": 10.08,
+          "z": 9000.00
+        },
+        {
+          "config": "{\"name\":\"f029dc81ff4905bbbbb4\",\"layouts\":[{\"id\":0,\"position\":{\"x\":12,\"y\":84,\"width\":622,\"height\":624,\"tabOrder\":-2000,\"z\":1000}},{\"id\":1,\"position\":{\"x\":0.04770903379389832,\"y\":194,\"z\":1000,\"width\":323.9522909662061,\"height\":324.9939382040395,\"tabOrder\":-2000}}],\"singleVisual\":{\"visualType\":\"shape\",\"drillFilterOtherVisuals\":true,\"objects\":{\"fill\":[{\"properties\":{\"show\":{\"expr\":{\"Literal\":{\"Value\":\"false\"}}}}}],\"outline\":[{\"properties\":{\"show\":{\"expr\":{\"Literal\":{\"Value\":\"false\"}}}}}],\"shape\":[{\"properties\":{\"tileShape\":{\"expr\":{\"Literal\":{\"Value\":\"'rectangle'\"}}}}}],\"text\":[{\"properties\":{\"show\":{\"expr\":{\"Literal\":{\"Value\":\"false\"}}}}}],\"shadow\":[{\"properties\":{\"show\":{\"expr\":{\"Literal\":{\"Value\":\"false\"}}}}}],\"glow\":[{\"properties\":{\"show\":{\"expr\":{\"Literal\":{\"Value\":\"false\"}}}}}]},\"vcObjects\":{\"border\":[{\"properties\":{\"show\":{\"expr\":{\"Literal\":{\"Value\":\"true\"}}},\"radius\":{\"expr\":{\"Literal\":{\"Value\":\"4M\"}}},\"color\":{\"solid\":{\"color\":{\"expr\":{\"Literal\":{\"Value\":\"'#E6E6E6'\"}}}}}}}],\"dropShadow\":[{\"properties\":{\"show\":{\"expr\":{\"Literal\":{\"Value\":\"true\"}}},\"preset\":{\"expr\":{\"Literal\":{\"Value\":\"'Custom'\"}}},\"shadowBlur\":{\"expr\":{\"Literal\":{\"Value\":\"3M\"}}},\"shadowDistance\":{\"expr\":{\"Literal\":{\"Value\":\"1M\"}}},\"shadowSpread\":{\"expr\":{\"Literal\":{\"Value\":\"1M\"}}},\"transparency\":{\"expr\":{\"Literal\":{\"Value\":\"87M\"}}}}}]}}}",
+          "filters": "[]",
+          "height": 624.00,
+          "width": 622.00,
+          "x": 12.00,
+          "y": 84.00,
+          "z": 1000.00
+        }
+      ],
+      "width": 1280.00
+    }
+  ]
+}

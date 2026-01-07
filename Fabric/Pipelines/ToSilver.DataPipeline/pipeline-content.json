@@ -1,0 +1,38 @@
+{
+  "properties": {
+    "activities": [
+      {
+        "type": "TridentNotebook",
+        "typeProperties": {
+          "notebookId": "25098b97-bfda-91c0-4c46-37d2407c7627",
+          "workspaceId": "00000000-0000-0000-0000-000000000000",
+          "parameters": {
+            "taxi_catalogs": {
+              "value": {
+                "value": "['yellow', 'green']",
+                "type": "Expression"
+              },
+              "type": "string"
+            }
+          }
+        },
+        "policy": {
+          "timeout": "0.12:00:00",
+          "retry": 0,
+          "retryIntervalInSeconds": 30,
+          "secureInput": false,
+          "secureOutput": false
+        },
+        "name": "StageIncrementally",
+        "dependsOn": []
+      }
+    ],
+    "libraryVariables": {
+      "ws_variable_library_taxi_datasets": {
+        "type": "String",
+        "variableName": "taxi_datasets",
+        "libraryName": "ws_variable_library"
+      }
+    }
+  }
+}

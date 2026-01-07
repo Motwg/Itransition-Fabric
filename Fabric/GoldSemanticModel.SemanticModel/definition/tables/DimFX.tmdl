@@ -1,0 +1,47 @@
+table DimFX
+	lineageTag: 94145a5d-a90b-4ad3-b4d1-f38a3e1a1757
+	sourceLineageTag: [Gold].[DimFX]
+
+	column fx_id
+		dataType: int64
+		formatString: 0
+		sourceProviderType: bigint
+		lineageTag: 5a572d9d-3349-4cd5-b1bb-5301d0a00fe1
+		sourceLineageTag: fx_id
+		summarizeBy: none
+		sourceColumn: fx_id
+
+		annotation SummarizationSetBy = Automatic
+
+	column date
+		dataType: dateTime
+		formatString: General Date
+		sourceProviderType: date
+		lineageTag: e75b0711-6eb3-4f3b-9b82-191be93f67c0
+		sourceLineageTag: date
+		summarizeBy: none
+		sourceColumn: date
+
+		annotation SummarizationSetBy = Automatic
+
+	column fx
+		dataType: double
+		sourceProviderType: float
+		lineageTag: cbbdebc0-e5bd-457c-aab9-fc1460ca2e39
+		sourceLineageTag: fx
+		summarizeBy: sum
+		sourceColumn: fx
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	partition DimFX = entity
+		mode: directLake
+		source
+			entityName: DimFX
+			schemaName: Gold
+			expressionSource: DatabaseQuery
+
+	annotation PBI_ResultType = Table
+

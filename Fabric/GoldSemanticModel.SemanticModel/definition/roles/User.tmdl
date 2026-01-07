@@ -1,0 +1,13 @@
+role User
+	modelPermission: read
+
+	tablePermission FactAirQualityDaily = [date] <> Blank()
+
+	tablePermission FactAirQualityHourly = [date] <> Blank()
+
+	tablePermission FactTaxiDaily = [date] <> Blank() && [zone_id] <> Blank()
+
+	tablePermission FactTaxiHourly = [date] <> Blank() && [zone_id] <> Blank()
+
+	annotation PBI_Id = 32455fc73ef04cb1ac640a5128a16632
+

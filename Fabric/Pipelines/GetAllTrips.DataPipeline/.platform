@@ -1,0 +1,11 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/gitIntegration/platformProperties/2.0.0/schema.json",
+  "metadata": {
+    "type": "DataPipeline",
+    "displayName": "GetAllTrips"
+  },
+  "config": {
+    "version": "2.0",
+    "logicalId": "97ed0d43-bcd3-b907-4dc5-2fb5ab893000"
+  }
+}

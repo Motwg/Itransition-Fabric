@@ -1,0 +1,11 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/gitIntegration/platformProperties/2.0.0/schema.json",
+  "metadata": {
+    "type": "Dataflow",
+    "displayName": "GetHourlyAQ"
+  },
+  "config": {
+    "version": "2.0",
+    "logicalId": "177db749-1ea1-9034-4dd5-e9dc30c194a1"
+  }
+}

@@ -1,0 +1,137 @@
+table FactTaxiDaily
+	lineageTag: cf3abd57-b0c3-40a9-9bce-1f41ce02e976
+	sourceLineageTag: [Gold].[FactTaxiDaily]
+
+	measure 'Avg. Trips per Day' =
+			
+			AVERAGEX (
+			    VALUES ( 'DimDate'[date] ),
+			    CALCULATE ( SUM ( FactTaxiDaily[count_trips] ) )
+			)
+		lineageTag: 0a1c7e3b-a959-464a-a3d9-2b391733d2ee
+
+		changedProperty = Name
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	measure sum_fares_eur =
+			SUMX(
+			    'FactTaxiDaily',
+			    'FactTaxiDaily'[sum_fares] * RELATED('DimFX'[fx])
+			)
+		lineageTag: 27106fa3-7a87-41e7-b4f2-fc8a801989a7
+
+		changedProperty = Name
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column trips_daily_id
+		dataType: int64
+		formatString: 0
+		sourceProviderType: bigint
+		lineageTag: 490ffba8-2090-4271-bde7-317c6c3b9598
+		sourceLineageTag: trips_daily_id
+		summarizeBy: sum
+		sourceColumn: trips_daily_id
+
+		annotation SummarizationSetBy = Automatic
+
+	column zone_id
+		dataType: int64
+		formatString: 0
+		sourceProviderType: int
+		lineageTag: 335cb66f-ad11-45dd-89cb-d3b1f482f596
+		sourceLineageTag: zone_id
+		summarizeBy: none
+		sourceColumn: zone_id
+
+		annotation SummarizationSetBy = Automatic
+
+	column fx_id
+		dataType: int64
+		formatString: 0
+		sourceProviderType: bigint
+		lineageTag: 809aaead-aa26-4306-aada-6af106603313
+		sourceLineageTag: fx_id
+		summarizeBy: none
+		sourceColumn: fx_id
+
+		annotation SummarizationSetBy = Automatic
+
+	column gdp_id
+		dataType: int64
+		formatString: 0
+		sourceProviderType: bigint
+		lineageTag: 6f38f439-eaad-40b3-b386-9b84cbcc8904
+		sourceLineageTag: gdp_id
+		summarizeBy: none
+		sourceColumn: gdp_id
+
+		annotation SummarizationSetBy = Automatic
+
+	column date
+		dataType: dateTime
+		formatString: General Date
+		sourceProviderType: date
+		lineageTag: 25c5fba9-61aa-47a0-8c81-749bc63571c5
+		sourceLineageTag: date
+		summarizeBy: none
+		sourceColumn: date
+
+		annotation SummarizationSetBy = Automatic
+
+	column count_trips
+		dataType: int64
+		formatString: 0
+		sourceProviderType: bigint
+		lineageTag: f83e1af7-f4d2-4f40-afbf-7e97fe719244
+		sourceLineageTag: count_trips
+		summarizeBy: sum
+		sourceColumn: count_trips
+
+		annotation SummarizationSetBy = Automatic
+
+	column sum_fares
+		dataType: double
+		sourceProviderType: float
+		lineageTag: d9efd917-ffd0-4f2c-a0db-a2430e6bd527
+		sourceLineageTag: sum_fares
+		summarizeBy: sum
+		sourceColumn: sum_fares
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column sum_total
+		dataType: double
+		sourceProviderType: float
+		lineageTag: 32c9aea2-787d-43d1-8917-717235f7a139
+		sourceLineageTag: sum_total
+		summarizeBy: sum
+		sourceColumn: sum_total
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column weather_id
+		dataType: int64
+		formatString: 0
+		sourceProviderType: bigint
+		lineageTag: fb85632d-1142-4192-9d2f-aa69a136d174
+		sourceLineageTag: weather_id
+		summarizeBy: none
+		sourceColumn: weather_id
+
+		annotation SummarizationSetBy = Automatic
+
+	partition FactTaxiDaily = entity
+		mode: directLake
+		source
+			entityName: FactTaxiDaily
+			schemaName: Gold
+			expressionSource: DatabaseQuery
+
+	annotation PBI_ResultType = Table
+

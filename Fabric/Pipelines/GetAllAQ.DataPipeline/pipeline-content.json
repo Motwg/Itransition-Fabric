@@ -1,0 +1,117 @@
+{
+  "properties": {
+    "activities": [
+      {
+        "type": "ForEach",
+        "typeProperties": {
+          "isSequential": false,
+          "batchCount": 2,
+          "items": {
+            "value": "@pipeline().parameters.sensors",
+            "type": "Expression"
+          },
+          "activities": [
+            {
+              "type": "InvokePipeline",
+              "typeProperties": {
+                "parameters": {
+                  "sensor_id": {
+                    "value": "@item().sensor_id",
+                    "type": "Expression"
+                  },
+                  "zone": {
+                    "value": "@item().zone",
+                    "type": "Expression"
+                  },
+                  "aq_api_key": {
+                    "value": "@pipeline().parameters.aq_api_key",
+                    "type": "Expression"
+                  }
+                },
+                "waitOnCompletion": true,
+                "workspaceId": "00000000-0000-0000-0000-000000000000",
+                "pipelineId": "e6e36dd0-0985-94f3-4260-1e08572682a4",
+                "operationType": "InvokeFabricPipeline"
+              },
+              "externalReferences": {
+                "connection": "4a6c2576-a201-4c58-8353-b64665e05f0f"
+              },
+              "policy": {
+                "timeout": "0.12:00:00",
+                "retry": 1,
+                "retryIntervalInSeconds": 30,
+                "secureInput": false,
+                "secureOutput": false
+              },
+              "name": "Invoke sensor pipeline",
+              "dependsOn": []
+            },
+            {
+              "type": "Wait",
+              "typeProperties": {
+                "waitTimeInSeconds": 1
+              },
+              "name": "Wait",
+              "dependsOn": [
+                {
+                  "activity": "Invoke sensor pipeline",
+                  "dependencyConditions": [
+                    "Completed"
+                  ]
+                }
+              ]
+            }
+          ]
+        },
+        "name": "ForEach Sensor",
+        "dependsOn": []
+      }
+    ],
+    "parameters": {
+      "sensors": {
+        "type": "array",
+        "defaultValue": [
+          {
+            "sensor_id": 1145,
+            "zone": 37
+          },
+          {
+            "sensor_id": 1098,
+            "zone": 147
+          },
+          {
+            "sensor_id": 1102,
+            "zone": 147
+          },
+          {
+            "sensor_id": 1106,
+            "zone": 132
+          },
+          {
+            "sensor_id": 1152,
+            "zone": 132
+          },
+          {
+            "sensor_id": 2780575,
+            "zone": 187
+          },
+          {
+            "sensor_id": 671,
+            "zone": 41
+          },
+          {
+            "sensor_id": 673,
+            "zone": 41
+          }
+        ]
+      },
+      "aq_api_key": {
+        "type": "securestring",
+        "defaultValue": {
+          "type": "SecureString",
+          "value": "**********"
+        }
+      }
+    }
+  }
+}
