@@ -1,0 +1,80 @@
+{
+  "formatVersion": "202502",
+  "computeEngineSettings": {},
+  "name": "Brooklyn",
+  "queryGroups": [],
+  "documentLocale": "en-GB",
+  "queriesMetadata": {
+    "DefaultDestination": {
+      "queryId": "1be84c24-14ad-49c1-a30c-b62d7134ae9e",
+      "queryName": "DefaultDestination",
+      "isHidden": true,
+      "loadEnabled": false
+    },
+    "LastDate": {
+      "queryId": "9419b2e4-64b1-47ff-b397-9434ad039d09",
+      "queryName": "LastDate",
+      "loadEnabled": false
+    },
+    "Sensors": {
+      "queryId": "898ed88f-7792-4587-9ef8-ac0edb365679",
+      "queryName": "Sensors",
+      "loadEnabled": false
+    },
+    "datetime_from": {
+      "queryId": "e51dc382-5f20-4842-aac6-f2b1b2e8bb3c",
+      "queryName": "datetime_from",
+      "loadEnabled": false
+    },
+    "datetime_format": {
+      "queryId": "8eb1781b-33e2-4dac-a7b7-e2cbcaa08089",
+      "queryName": "datetime_format",
+      "loadEnabled": false
+    },
+    "p_sensor_id": {
+      "queryId": "c82890cc-9798-48e4-acb5-ae53194f180c",
+      "queryName": "p_sensor_id",
+      "loadEnabled": false
+    },
+    "aq_api_key": {
+      "queryId": "dd4e7878-a193-4ee0-ba93-f1921d2e3fae",
+      "queryName": "aq_api_key",
+      "loadEnabled": false
+    },
+    "p_zone": {
+      "queryId": "bfa9ed50-ece9-4b33-abfb-04835162d6f0",
+      "queryName": "p_zone",
+      "loadEnabled": false
+    },
+    "Sensors_DataDestination": {
+      "queryId": "37161df9-2144-4f77-a26c-396d0e4a1847",
+      "queryName": "Sensors_DataDestination",
+      "isHidden": true,
+      "loadEnabled": false
+    }
+  },
+  "connections": [
+    {
+      "path": "Lakehouse",
+      "kind": "Lakehouse",
+      "connectionId": "{\"ClusterId\":\"44aa616e-ed36-4581-b20c-168bdf24af7f\",\"DatasourceId\":\"7f82b240-8d55-452f-b767-a7c1e6714cd7\"}"
+    },
+    {
+      "path": "PowerPlatformDataflows",
+      "kind": "PowerPlatformDataflows",
+      "connectionId": "{\"ClusterId\":\"44aa616e-ed36-4581-b20c-168bdf24af7f\",\"DatasourceId\":\"e4db4241-9ba1-4fef-a5e2-ec964cbb5877\"}"
+    },
+    {
+      "path": "https://api.openaq.org/v3/locations/",
+      "kind": "Web",
+      "connectionId": "{\"ClusterId\":\"44aa616e-ed36-4581-b20c-168bdf24af7f\",\"DatasourceId\":\"e79cfe3e-479e-464d-b558-3f2aebb13ed0\"}"
+    },
+    {
+      "path": "https://api.openaq.org/v3/",
+      "kind": "Web",
+      "connectionId": "{\"ClusterId\":\"44aa616e-ed36-4581-b20c-168bdf24af7f\",\"DatasourceId\":\"c9520f0d-b7fd-453d-93b7-dc08adb51080\"}"
+    }
+  ],
+  "fastCombine": true,
+  "parametric": true
+}

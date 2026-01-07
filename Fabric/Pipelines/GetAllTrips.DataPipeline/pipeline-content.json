@@ -1,0 +1,62 @@
+{
+  "properties": {
+    "activities": [
+      {
+        "type": "ForEach",
+        "typeProperties": {
+          "items": {
+            "value": "@pipeline().parameters.dataset",
+            "type": "Expression"
+          },
+          "activities": [
+            {
+              "type": "InvokePipeline",
+              "typeProperties": {
+                "parameters": {
+                  "catalog": {
+                    "value": "@item()",
+                    "type": "Expression"
+                  }
+                },
+                "waitOnCompletion": true,
+                "workspaceId": "00000000-0000-0000-0000-000000000000",
+                "pipelineId": "12eac308-4e3d-86b5-42e2-bfd21a4d90eb",
+                "operationType": "InvokeFabricPipeline"
+              },
+              "externalReferences": {
+                "connection": "4a6c2576-a201-4c58-8353-b64665e05f0f"
+              },
+              "policy": {
+                "timeout": "0.12:00:00",
+                "retry": 0,
+                "retryIntervalInSeconds": 30,
+                "secureInput": false,
+                "secureOutput": false
+              },
+              "name": "Invoke GetTrips",
+              "dependsOn": []
+            }
+          ]
+        },
+        "name": "ForEach Dataset",
+        "dependsOn": []
+      }
+    ],
+    "parameters": {
+      "dataset": {
+        "type": "array",
+        "defaultValue": [
+          "yellow",
+          "green"
+        ]
+      }
+    },
+    "libraryVariables": {
+      "ws_variable_library_start_var_ym": {
+        "type": "String",
+        "variableName": "start_var_ym",
+        "libraryName": "ws_variable_library"
+      }
+    }
+  }
+}

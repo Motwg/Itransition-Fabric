@@ -1,0 +1,11 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/gitIntegration/platformProperties/2.0.0/schema.json",
+  "metadata": {
+    "type": "Report",
+    "displayName": "TaxiAndAirQuality Report"
+  },
+  "config": {
+    "version": "2.0",
+    "logicalId": "fd18a9ea-f88f-80df-4f08-1ecf2c6b7c12"
+  }
+}

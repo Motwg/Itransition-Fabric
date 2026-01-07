@@ -1,0 +1,46 @@
+table DimGDP
+	lineageTag: 194477d9-0a30-476b-98a2-921d54980280
+	sourceLineageTag: [Gold].[DimGDP]
+
+	column gdp_id
+		dataType: int64
+		formatString: 0
+		sourceProviderType: bigint
+		lineageTag: d23c20eb-af73-47dc-8276-4b9181e98ab5
+		sourceLineageTag: gdp_id
+		summarizeBy: none
+		sourceColumn: gdp_id
+
+		annotation SummarizationSetBy = Automatic
+
+	column year
+		dataType: int64
+		formatString: 0
+		sourceProviderType: int
+		lineageTag: 109b57e4-bf16-45d2-92c6-60636dd0cda9
+		sourceLineageTag: year
+		summarizeBy: sum
+		sourceColumn: year
+
+		annotation SummarizationSetBy = Automatic
+
+	column gdp
+		dataType: int64
+		formatString: 0
+		sourceProviderType: bigint
+		lineageTag: e25d0afb-aeb8-4aa2-99c2-7e625065ac77
+		sourceLineageTag: gdp
+		summarizeBy: sum
+		sourceColumn: gdp
+
+		annotation SummarizationSetBy = Automatic
+
+	partition DimGDP = entity
+		mode: directLake
+		source
+			entityName: DimGDP
+			schemaName: Gold
+			expressionSource: DatabaseQuery
+
+	annotation PBI_ResultType = Table
+

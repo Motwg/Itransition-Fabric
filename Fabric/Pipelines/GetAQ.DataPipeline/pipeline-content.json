@@ -1,0 +1,111 @@
+{
+  "properties": {
+    "activities": [
+      {
+        "type": "RefreshDataflow",
+        "typeProperties": {
+          "dataflowId": "177db749-1ea1-9034-4dd5-e9dc30c194a1",
+          "workspaceId": "00000000-0000-0000-0000-000000000000",
+          "notifyOption": "NoNotification",
+          "dataflowType": "DataflowFabric",
+          "parameters": {
+            "aq_api_key": {
+              "value": {
+                "value": "@pipeline().parameters.aq_api_key",
+                "type": "Expression"
+              },
+              "type": "String"
+            },
+            "datetime_from": {
+              "value": {
+                "value": "@variables('from_datetimezone')",
+                "type": "Expression"
+              },
+              "type": "DateTimeZone"
+            },
+            "datetime_format": {
+              "value": "yyyy-MM-dd'T'HH:mm:ss'Z'",
+              "type": "String"
+            },
+            "p_sensor_id": {
+              "value": {
+                "value": "@pipeline().parameters.sensor_id",
+                "type": "Expression"
+              },
+              "type": "Float"
+            },
+            "p_zone": {
+              "value": {
+                "value": "@pipeline().parameters.zone",
+                "type": "Expression"
+              },
+              "type": "String"
+            }
+          }
+        },
+        "policy": {
+          "timeout": "0.00:20:00",
+          "retry": 0,
+          "retryIntervalInSeconds": 30,
+          "secureInput": false,
+          "secureOutput": false
+        },
+        "name": "GetHourlyAQData",
+        "description": "",
+        "dependsOn": [
+          {
+            "activity": "Set from datetimezone",
+            "dependencyConditions": [
+              "Succeeded"
+            ]
+          }
+        ]
+      },
+      {
+        "type": "SetVariable",
+        "typeProperties": {
+          "variableName": "from_datetimezone",
+          "value": {
+            "value": "@formatDateTime(pipeline().libraryVariables.ws_variable_library_start_var_ym)",
+            "type": "Expression"
+          }
+        },
+        "policy": {
+          "secureInput": false,
+          "secureOutput": false
+        },
+        "name": "Set from datetimezone",
+        "dependsOn": []
+      }
+    ],
+    "parameters": {
+      "aq_api_key": {
+        "type": "securestring",
+        "defaultValue": {
+          "type": "SecureString",
+          "value": "**********"
+        }
+      },
+      "sensor_id": {
+        "type": "int",
+        "defaultValue": 671
+      },
+      "zone": {
+        "type": "int",
+        "defaultValue": 41
+      }
+    },
+    "libraryVariables": {
+      "ws_variable_library_start_var_ym": {
+        "type": "String",
+        "variableName": "start_var_ym",
+        "libraryName": "ws_variable_library"
+      }
+    },
+    "variables": {
+      "from_datetimezone": {
+        "type": "String"
+      }
+    }
+  }
+}

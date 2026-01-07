@@ -1,0 +1,36 @@
+{
+  "properties": {
+    "activities": [
+      {
+        "name": "Refresh Gold",
+        "type": "SqlServerStoredProcedure",
+        "dependsOn": [],
+        "policy": {
+          "timeout": "0.01:00:00",
+          "retry": 0,
+          "retryIntervalInSeconds": 30,
+          "secureOutput": false,
+          "secureInput": false
+        },
+        "typeProperties": {
+          "storedProcedureName": "[Gold].[refresh_gold]"
+        },
+        "connectionSettings": {
+          "name": "Gold_Warehouse",
+          "properties": {
+            "annotations": [],
+            "type": "DataWarehouse",
+            "typeProperties": {
+              "endpoint": "2vshfvodyeuetnhlsp2nu25sn4-jvkaelavaopetgevv5m6mensnm.datawarehouse.fabric.microsoft.com",
+              "artifactId": "24f81607-9381-43dd-8905-58e6af1980b9",
+              "workspaceId": "2c02544d-0315-499e-9895-af59e611b26b"
+            },
+            "externalReferences": {
+              "connection": "041a8ded-7f7e-474c-a84b-5050e2ef549a"
+            }
+          }
+        }
+      }
+    ]
+  }
+}

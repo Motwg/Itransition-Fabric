@@ -1,0 +1,82 @@
+table DimWeather
+	lineageTag: 6108888f-6ac1-4787-a499-58ec12a724c2
+	sourceLineageTag: [Gold].[DimWeather]
+
+	column weather_id
+		dataType: int64
+		formatString: 0
+		sourceProviderType: bigint
+		lineageTag: 58c47de4-6c83-4d51-b1a0-68185ec37d43
+		sourceLineageTag: weather_id
+		summarizeBy: none
+		sourceColumn: weather_id
+
+		annotation SummarizationSetBy = Automatic
+
+	column year
+		dataType: int64
+		formatString: 0
+		sourceProviderType: int
+		lineageTag: b0f70130-df3a-4606-90e1-223e54a67fe6
+		sourceLineageTag: year
+		summarizeBy: sum
+		sourceColumn: year
+
+		annotation SummarizationSetBy = Automatic
+
+	column month
+		dataType: int64
+		formatString: 0
+		sourceProviderType: int
+		lineageTag: d77e39c1-12ef-4a53-ac34-a4e965214ec0
+		sourceLineageTag: month
+		summarizeBy: sum
+		sourceColumn: month
+
+		annotation SummarizationSetBy = Automatic
+
+	column avg_fahr
+		dataType: double
+		sourceProviderType: float
+		lineageTag: ecf9b699-f22e-4189-81b9-ec8cf30972fa
+		sourceLineageTag: avg_fahr
+		summarizeBy: sum
+		sourceColumn: avg_fahr
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column avg_celsius
+		dataType: double
+		sourceProviderType: float
+		lineageTag: ae82c64c-2c18-4a1a-a4af-0833d383c387
+		sourceLineageTag: avg_celsius
+		summarizeBy: sum
+		sourceColumn: avg_celsius
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column sum_precipitation
+		dataType: double
+		sourceProviderType: float
+		lineageTag: a3e6b7db-0185-4e65-8386-58b2390d1944
+		sourceLineageTag: sum_precipitation
+		summarizeBy: sum
+		sourceColumn: sum_precipitation
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	partition DimWeather = entity
+		mode: directLake
+		source
+			entityName: DimWeather
+			schemaName: Gold
+			expressionSource: DatabaseQuery
+
+	annotation PBI_ResultType = Table
+

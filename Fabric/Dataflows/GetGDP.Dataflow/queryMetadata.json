@@ -1,0 +1,32 @@
+{
+  "formatVersion": "202502",
+  "computeEngineSettings": {},
+  "name": "GetGDP",
+  "queryGroups": [],
+  "documentLocale": "en-GB",
+  "queriesMetadata": {
+    "DefaultDestination": {
+      "queryId": "dc2eb94e-ba2c-4dbb-b2f4-3e0c0a1632ff",
+      "queryName": "DefaultDestination",
+      "isHidden": true,
+      "loadEnabled": false
+    },
+    "GDP": {
+      "queryId": "f82ab41b-98ea-4433-bc43-3f3533e1d28b",
+      "queryName": "GDP",
+      "loadEnabled": false
+    }
+  },
+  "connections": [
+    {
+      "path": "Lakehouse",
+      "kind": "Lakehouse",
+      "connectionId": "{\"ClusterId\":\"44aa616e-ed36-4581-b20c-168bdf24af7f\",\"DatasourceId\":\"7f82b240-8d55-452f-b767-a7c1e6714cd7\"}"
+    },
+    {
+      "path": "https://api.worldbank.org/v2/country/USA/indicator/NY.GDP.MKTP.CD?format=json",
+      "kind": "Web",
+      "connectionId": "{\"ClusterId\":\"44aa616e-ed36-4581-b20c-168bdf24af7f\",\"DatasourceId\":\"325be718-9364-471e-a888-c49c24232ff9\"}"
+    }
+  ]
+}

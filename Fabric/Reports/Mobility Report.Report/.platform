@@ -1,0 +1,11 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/gitIntegration/platformProperties/2.0.0/schema.json",
+  "metadata": {
+    "type": "Report",
+    "displayName": "Mobility Report"
+  },
+  "config": {
+    "version": "2.0",
+    "logicalId": "19de4251-8bd6-a989-4e2e-8523d920dcfb"
+  }
+}

@@ -1,0 +1,309 @@
+{
+  "properties": {
+    "activities": [
+      {
+        "type": "SetVariable",
+        "typeProperties": {
+          "variableName": "to_date",
+          "value": {
+            "value": "@formatDateTime(addToTime(utcNow(), -1, 'Month'), 'yyyy-MM')",
+            "type": "Expression"
+          }
+        },
+        "policy": {
+          "secureInput": false,
+          "secureOutput": false
+        },
+        "name": "Set to_date with 2m lag",
+        "dependsOn": []
+      },
+      {
+        "type": "SetVariable",
+        "typeProperties": {
+          "variableName": "from_date",
+          "value": {
+            "value": "@formatDateTime(\n    addToTime(\n                split(\n                    activity('Find last').output.output, \n                '.')[0],\n    1, 'Month'), \n'yyyy-MM')",
+            "type": "Expression"
+          }
+        },
+        "policy": {
+          "secureInput": false,
+          "secureOutput": false
+        },
+        "name": "Set from_date and increment",
+        "dependsOn": [
+          {
+            "activity": "Find last",
+            "dependencyConditions": [
+              "Succeeded"
+            ]
+          }
+        ]
+      },
+      {
+        "type": "IfCondition",
+        "typeProperties": {
+          "expression": {
+            "value": "@greater(variables('to_date'), variables('from_date'))",
+            "type": "Expression"
+          },
+          "ifTrueActivities": [
+            {
+              "type": "Copy",
+              "typeProperties": {
+                "source": {
+                  "type": "ParquetSource",
+                  "storeSettings": {
+                    "type": "HttpReadSettings",
+                    "requestMethod": "GET"
+                  },
+                  "formatSettings": {
+                    "type": "ParquetReadSettings"
+                  },
+                  "datasetSettings": {
+                    "type": "Parquet",
+                    "typeProperties": {
+                      "location": {
+                        "type": "HttpServerLocation",
+                        "relativeUrl": {
+                          "value": "@concat(pipeline().parameters.catalog, '_tripdata_', variables('from_date'), '.parquet')",
+                          "type": "Expression"
+                        }
+                      },
+                      "compressionCodec": "snappy"
+                    },
+                    "schema": [],
+                    "externalReferences": {
+                      "connection": "3da4b898-21ee-48d1-96c2-3be968c14ec7"
+                    },
+                    "annotations": []
+                  }
+                },
+                "sink": {
+                  "type": "ParquetSink",
+                  "formatSettings": {
+                    "type": "ParquetWriteSettings",
+                    "enableVertiParquet": false
+                  },
+                  "storeSettings": {
+                    "type": "LakehouseWriteSettings",
+                    "maxConcurrentConnections": 2,
+                    "copyBehavior": "FlattenHierarchy"
+                  },
+                  "datasetSettings": {
+                    "type": "Parquet",
+                    "typeProperties": {
+                      "location": {
+                        "type": "LakehouseLocation",
+                        "folderPath": {
+                          "value": "@pipeline().parameters.catalog",
+                          "type": "Expression"
+                        },
+                        "fileName": {
+                          "value": "@concat(variables('from_date'), '.parquet')",
+                          "type": "Expression"
+                        }
+                      },
+                      "compressionCodec": "snappy"
+                    },
+                    "schema": [],
+                    "connectionSettings": {
+                      "name": "Bronze_Lakehouse",
+                      "properties": {
+                        "type": "Lakehouse",
+                        "typeProperties": {
+                          "artifactId": "e9734873-55cb-93d1-49d4-07327fca3f40",
+                          "workspaceId": "00000000-0000-0000-0000-000000000000",
+                          "rootFolder": "Files"
+                        },
+                        "externalReferences": {
+                          "connection": "7f82b240-8d55-452f-b767-a7c1e6714cd7"
+                        },
+                        "annotations": []
+                      }
+                    },
+                    "annotations": []
+                  }
+                },
+                "translator": {
+                  "type": "TabularTranslator",
+                  "typeConversion": true,
+                  "typeConversionSettings": {
+                    "allowDataTruncation": true,
+                    "treatBooleanAsNumber": false
+                  }
+                },
+                "enableStaging": false
+              },
+              "policy": {
+                "timeout": "0.12:00:00",
+                "retry": 0,
+                "retryIntervalInSeconds": 30,
+                "secureInput": false,
+                "secureOutput": false
+              },
+              "name": "To Lakehouse",
+              "description": "\n",
+              "dependsOn": []
+            }
+          ],
+          "ifFalseActivities": []
+        },
+        "name": "If file might be avaiable",
+        "dependsOn": [
+          {
+            "activity": "Set from_date and increment",
+            "dependencyConditions": [
+              "Succeeded",
+              "Skipped"
+            ]
+          },
+          {
+            "activity": "Set from_date from library",
+            "dependencyConditions": [
+              "Succeeded",
+              "Skipped"
+            ]
+          }
+        ]
+      },
+      {
+        "type": "GetMetadata",
+        "typeProperties": {
+          "datasetSettings": {
+            "type": "Binary",
+            "typeProperties": {
+              "location": {
+                "type": "LakehouseLocation",
+                "folderPath": {
+                  "value": "@pipeline().parameters.catalog",
+                  "type": "Expression"
+                }
+              }
+            },
+            "connectionSettings": {
+              "name": "Bronze_Lakehouse",
+              "properties": {
+                "type": "Lakehouse",
+                "typeProperties": {
+                  "artifactId": "e9734873-55cb-93d1-49d4-07327fca3f40",
+                  "workspaceId": "00000000-0000-0000-0000-000000000000",
+                  "rootFolder": "Files"
+                },
+                "externalReferences": {
+                  "connection": "7f82b240-8d55-452f-b767-a7c1e6714cd7"
+                },
+                "annotations": []
+              }
+            },
+            "annotations": []
+          },
+          "fieldList": [
+            "childItems"
+          ],
+          "storeSettings": {
+            "type": "LakehouseReadSettings",
+            "recursive": true,
+            "enablePartitionDiscovery": false
+          },
+          "formatSettings": {
+            "type": "BinaryReadSettings"
+          }
+        },
+        "policy": {
+          "timeout": "0.12:00:00",
+          "retry": 0,
+          "retryIntervalInSeconds": 30,
+          "secureInput": false,
+          "secureOutput": false
+        },
+        "name": "Get filenames",
+        "dependsOn": [
+          {
+            "activity": "Set to_date with 2m lag",
+            "dependencyConditions": [
+              "Succeeded"
+            ]
+          }
+        ]
+      },
+      {
+        "type": "AzureFunctionActivity",
+        "typeProperties": {
+          "functionName": "get_last_sorted",
+          "functionSetId": "1f6df7d7-7382-b80b-4f50-7115f5e1e1b0",
+          "workspaceId": "00000000-0000-0000-0000-000000000000",
+          "parameters": {
+            "childs": {
+              "value": "@string(activity('Get filenames').output.childItems)",
+              "type": "Expression"
+            }
+          }
+        },
+        "externalReferences": {
+          "connection": "38a2b9a5-ba44-47f8-a5c6-99c598a2f52b"
+        },
+        "policy": {
+          "timeout": "0.12:00:00",
+          "retry": 0,
+          "retryIntervalInSeconds": 30,
+          "secureInput": false,
+          "secureOutput": false
+        },
+        "name": "Find last",
+        "dependsOn": [
+          {
+            "activity": "Get filenames",
+            "dependencyConditions": [
+              "Succeeded"
+            ]
+          }
+        ]
+      },
+      {
+        "type": "SetVariable",
+        "typeProperties": {
+          "variableName": "from_date",
+          "value": {
+            "value": "@pipeline().libraryVariables.ws_variable_library_start_var_ym",
+            "type": "Expression"
+          }
+        },
+        "policy": {
+          "secureInput": false,
+          "secureOutput": false
+        },
+        "name": "Set from_date from library",
+        "dependsOn": [
+          {
+            "activity": "Find last",
+            "dependencyConditions": [
+              "Failed"
+            ]
+          }
+        ]
+      }
+    ],
+    "parameters": {
+      "catalog": {
+        "type": "string",
+        "defaultValue": "yellow"
+      }
+    },
+    "libraryVariables": {
+      "ws_variable_library_start_var_ym": {
+        "type": "String",
+        "variableName": "start_var_ym",
+        "libraryName": "ws_variable_library"
+      }
+    },
+    "variables": {
+      "from_date": {
+        "type": "String"
+      },
+      "to_date": {
+        "type": "String"
+      }
+    }
+  }
+}
