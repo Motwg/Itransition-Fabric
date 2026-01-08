@@ -22,9 +22,8 @@
 
 # PARAMETERS CELL ********************
 
-import json
-
-taxi_catalogs = json.loads('["yellow", "green"]')
+taxi_catalogs = '["yellow", "green"]'
+begin_date = '2020-01-01'
 
 # METADATA ********************
 
@@ -36,15 +35,15 @@ taxi_catalogs = json.loads('["yellow", "green"]')
 # CELL ********************
 
 from pyspark.sql.functions import col, to_utc_timestamp, to_date, exists, lit, hour, day, replace, when, round, year, quarter,month, make_date, date_format, weekofyear, dayofyear, dayofmonth, dayofweek
-from pyspark.sql import functions as F, Window, Row, udf
+from pyspark.sql import functions as F, Window, Row
 from pyspark.sql.types import DoubleType, LongType, IntegerType
 from pyspark.errors import AnalysisException
 from datetime import datetime
 from dateutil.relativedelta import relativedelta
+import json
 
 bronze_lh = 'abfss://Itransition@onelake.dfs.fabric.microsoft.com/Bronze_Lakehouse.Lakehouse/'
-
-begin_date = '2020-01-01'
+taxi_catalogs = json.loads(taxi_catalogs)
 end_date = datetime.today().date() + relativedelta(years=1)
 
 # METADATA ********************
@@ -56,12 +55,16 @@ end_date = datetime.today().date() + relativedelta(years=1)
 
 # CELL ********************
 
-def columnOrDefault(df, col_name: str, default_value, cast_type):
-    return df.withColumn(col_name, round(F.abs(col(col_name)), 2) if col_name in df.columns else lit(default_value).cast(cast_type))
-
-@udf(returnType=DoubleType())
+@F.udf(returnType=DoubleType())
 def fahr_to_celsius(fahr):
     return (fahr - 32) * 5.0 / 9.0
+
+@F.udf(returnType=DoubleType())
+def negative_to_zero(value):
+    return 0.0 if value < 0.0 else value
+
+def column_or_default(df, col_name: str, default_value, cast_type):
+    return df.withColumn(col_name, round(F.abs(col(col_name)), 2) if col_name in df.columns else lit(default_value).cast(cast_type))
 
 def filter_taxi(taxi):
     return taxi.filter(taxi.fare < 1000000)
@@ -81,7 +84,7 @@ def clean_taxi(taxi, color: str, year_month: str):
         'cbd_congestion_fee',
     ]
     for c in opt_columns:
-        taxi = columnOrDefault(taxi, c, 0.0, DoubleType())
+        taxi = column_or_default(taxi, c, 0.0, DoubleType())
     prefix = {
         'yellow': 'tpep',
         'green': 'lpep'
@@ -129,8 +132,9 @@ def fill_missing_dates(df):
 
 # CELL ********************
 
+default_first = '1900-01.parquet'
 try:
-    meta_df = spark.sql("SELECT * FROM Silver_Lakehouse.dbo.Meta WHERE table_name='DimTrip'")
+    meta_df = spark.sql("SELECT * FROM Silver_Lakehouse.dbo.Meta")
 except AnalysisException:
     meta_df = spark.createDataFrame([
         Row(table_name='DimTrip', field_name='yellow', last='1900-01.parquet'),
@@ -139,16 +143,17 @@ for c in taxi_catalogs:
     try:
         last = meta_df.filter(meta_df.field_name == c).first().last
     except AttributeError:
-        last = '1900-01.parquet'
+        last = default_first
+        new_record = spark.createDataFrame([
+            Row(table_name='DimTrip', field_name=c, last=default_first),
+        ])
+        meta_df = meta_df.union(new_record)
     for f in notebookutils.fs.ls(bronze_lh + f'Files/{c}/'):
         if f.name > last:
             trip = spark.read.parquet(bronze_lh + f'Files/{c}/{f.name}')
             trip = clean_taxi(trip, c, f.name.split('.')[0])
             trip = filter_taxi(trip)
             trip.write.format('delta').mode('append').save('Tables/dbo/DimTrip')
-            
-            # new_last = datetime.strptime(last.split('.')[0], '%Y-%m').date() - relativedelta(months=1)
-            # new_last = f'{new_last.year}-{new_last.month:0>2}'
             
             meta_df = meta_df.withColumn('last',
                 when((meta_df['field_name'] == c) & (meta_df['table_name'] == 'DimTrip') , f.name).otherwise(meta_df['last']))
@@ -216,7 +221,7 @@ sensors = (
     spark.sql("SELECT * FROM Bronze_Lakehouse.dbo.Sensors")
     .select(
         col('sensor_id'),
-        col('value'),
+        negative_to_zero(col('value')).alias('value'),
         col('zone').alias('zone_id'),
         to_date(col('from_utc')).alias('dt'),
         hour(col('from_utc')).cast('integer').alias('pu_hour'),
@@ -282,7 +287,7 @@ temperature = spark.sql("SELECT * FROM Bronze_Lakehouse.dbo.Temperature OFFSET 2
 temperature = (
     temperature.select(
         to_date(temperature[0], 'yyyyMM').alias('date'), 
-        temperature[1].alias('avg_fahr'),
+        temperature[1].cast(DoubleType()).alias('avg_fahr'),
     )
 )
 
@@ -290,7 +295,7 @@ precipitation = spark.sql("SELECT * FROM Bronze_Lakehouse.dbo.Precipitation OFFS
 precipitation = (
     precipitation.select(
         to_date(precipitation[0], 'yyyyMM').alias('date'), 
-        precipitation[1].alias('sum_precipitation')
+        precipitation[1].cast(DoubleType()).alias('sum_precipitation')
     )
 )
 
