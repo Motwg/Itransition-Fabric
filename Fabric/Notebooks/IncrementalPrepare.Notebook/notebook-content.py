@@ -23,6 +23,7 @@
 # PARAMETERS CELL ********************
 
 taxi_catalogs = '["yellow", "green"]'
+begin_date = '2020-01-01'
 
 # METADATA ********************
 
@@ -43,7 +44,6 @@ import json
 
 bronze_lh = 'abfss://Itransition@onelake.dfs.fabric.microsoft.com/Bronze_Lakehouse.Lakehouse/'
 taxi_catalogs = json.loads(taxi_catalogs)
-begin_date = '2020-01-01'
 end_date = datetime.today().date() + relativedelta(years=1)
 
 # METADATA ********************
@@ -55,12 +55,16 @@ end_date = datetime.today().date() + relativedelta(years=1)
 
 # CELL ********************
 
-def columnOrDefault(df, col_name: str, default_value, cast_type):
-    return df.withColumn(col_name, round(F.abs(col(col_name)), 2) if col_name in df.columns else lit(default_value).cast(cast_type))
-
 @F.udf(returnType=DoubleType())
 def fahr_to_celsius(fahr):
     return (fahr - 32) * 5.0 / 9.0
+
+@F.udf(returnType=DoubleType())
+def negative_to_zero(value):
+    return 0.0 if value < 0.0 else value
+
+def column_or_default(df, col_name: str, default_value, cast_type):
+    return df.withColumn(col_name, round(F.abs(col(col_name)), 2) if col_name in df.columns else lit(default_value).cast(cast_type))
 
 def filter_taxi(taxi):
     return taxi.filter(taxi.fare < 1000000)
@@ -80,7 +84,7 @@ def clean_taxi(taxi, color: str, year_month: str):
         'cbd_congestion_fee',
     ]
     for c in opt_columns:
-        taxi = columnOrDefault(taxi, c, 0.0, DoubleType())
+        taxi = column_or_default(taxi, c, 0.0, DoubleType())
     prefix = {
         'yellow': 'tpep',
         'green': 'lpep'
@@ -217,7 +221,7 @@ sensors = (
     spark.sql("SELECT * FROM Bronze_Lakehouse.dbo.Sensors")
     .select(
         col('sensor_id'),
-        col('value'),
+        negative_to_zero(col('value')).alias('value'),
         col('zone').alias('zone_id'),
         to_date(col('from_utc')).alias('dt'),
         hour(col('from_utc')).cast('integer').alias('pu_hour'),
@@ -283,7 +287,7 @@ temperature = spark.sql("SELECT * FROM Bronze_Lakehouse.dbo.Temperature OFFSET 2
 temperature = (
     temperature.select(
         to_date(temperature[0], 'yyyyMM').alias('date'), 
-        temperature[1].alias('avg_fahr'),
+        temperature[1].cast(DoubleType()).alias('avg_fahr'),
     )
 )
 
@@ -291,7 +295,7 @@ precipitation = spark.sql("SELECT * FROM Bronze_Lakehouse.dbo.Precipitation OFFS
 precipitation = (
     precipitation.select(
         to_date(precipitation[0], 'yyyyMM').alias('date'), 
-        precipitation[1].alias('sum_precipitation')
+        precipitation[1].cast(DoubleType()).alias('sum_precipitation')
     )
 )
 
