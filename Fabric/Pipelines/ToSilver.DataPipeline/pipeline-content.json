@@ -35,6 +35,22 @@
         "typeProperties": {
           "notebookId": "14e2dd9e-b482-ad49-4c76-af7d2ee0fcf5",
           "workspaceId": "00000000-0000-0000-0000-000000000000",
+          "parameters": {
+            "webhook_id": {
+              "value": {
+                "value": "@pipeline().parameters.dc_webhook_id",
+                "type": "Expression"
+              },
+              "type": "string"
+            },
+            "webhook_url": {
+              "value": {
+                "value": "@pipeline().parameters.dc_webhook_url",
+                "type": "Expression"
+              },
+              "type": "string"
+            }
+          },
           "sessionTag": "TagToSilver"
         },
         "externalReferences": {
@@ -58,6 +74,22 @@
         ]
       }
     ],
+    "parameters": {
+      "dc_webhook_id": {
+        "type": "securestring",
+        "defaultValue": {
+          "type": "SecureString",
+          "value": "**********"
+        }
+      },
+      "dc_webhook_url": {
+        "type": "securestring",
+        "defaultValue": {
+          "type": "SecureString",
+          "value": "**********"
+        }
+      }
+    },
     "libraryVariables": {
       "ws_variable_library_taxi_datasets": {
         "type": "String",

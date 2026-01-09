@@ -26,21 +26,8 @@
 
 # PARAMETERS CELL ********************
 
-# Welcome to your new notebook
-# Type here in the cell editor to add code!
-value = 0
-
-# METADATA ********************
-
-# META {
-# META   "language": "python",
-# META   "language_group": "synapse_pyspark"
-# META }
-
-# CELL ********************
-
-value = meta_df.filter(meta_df.field_name == c).first().last
-mssparkutils.notebook.exit()
+webhook_id = ''
+webhook_url = ''
 
 # METADATA ********************
 
@@ -54,8 +41,8 @@ mssparkutils.notebook.exit()
 import great_expectations as gx
 
 
-def definitions(df_expectations: dict[str, list[gx.ExpectationSuite]]):
-    validation_definitions = []
+def definitions(df_expectations: dict[str, list[gx.ExpectationSuite]]) -> dict[str, gx.ValidationDefinition]:
+    validation_definitions = {}
     for df_name, expectations in df_expectations.items():
         data_source = context.data_sources.add_spark(df_name + '_spark_datasource')
         data_asset = data_source.add_dataframe_asset(df_name + '_asset')
@@ -66,7 +53,7 @@ def definitions(df_expectations: dict[str, list[gx.ExpectationSuite]]):
         expectation_suite_name = df_name + '_validation_suite'
         context.suites.add(suite := gx.ExpectationSuite(expectation_suite_name))
 
-        validation_definitions.append(val_def := gx.ValidationDefinition(
+        validation_definitions[df_name] = (val_def := gx.ValidationDefinition(
             data = batch_definition,
             suite = suite,
             name = df_name + '_validation_definition',
@@ -93,25 +80,77 @@ expectations = {
         gx.expectations.ExpectColumnValuesToBeBetween(column='quarter', min_value=1, max_value=4),
     ],
     'DimSensors': [
-        gx.expectations.ExpectColumnValuesToBeBetween(column='value', min_value=-1.0, max_value=1000.0),
-    ]
+        gx.expectations.ExpectColumnValuesToNotBeNull(column='sensor_id'),
+        gx.expectations.ExpectColumnValuesToNotBeNull(column='zone_id'),
+        gx.expectations.ExpectColumnValuesToNotBeNull(column='value'),
+        gx.expectations.ExpectColumnValuesToBeBetween(column='value', min_value=0.0, max_value=1000.0),
+    ],
+    'DimTrip': [
+        gx.expectations.ExpectColumnValuesToBeBetween(column='fare', min_value=0.0, max_value=1_000_000.0),
+        gx.expectations.ExpectColumnValuesToNotBeNull(column='pu_dt'),
+        gx.expectations.ExpectColumnValuesToNotBeNull(column='pu_hour'),
+        gx.expectations.ExpectColumnValuesToBeBetween(column='pu_hour', min_value=0, max_value=23),
+    ],
 }
 
 val_definitions = definitions(expectations)
-action_list = [
+
+results = {}
+for table, val_definition in val_definitions.items():
+    checkpoint = gx.Checkpoint(
+        name=table + '_checkpoint',
+        validation_definitions=[val_definition],
+        actions=[],
+    )
+    results[table] = checkpoint.run({'dataframe': spark.read.table(table)})
+
+# METADATA ********************
+
+# META {
+# META   "language": "python",
+# META   "language_group": "synapse_pyspark"
+# META }
+
+# CELL ********************
+
+import pprint
+
+def generate_details(run_result):
+    lines = []
+    for _, desc in run_result.items():
+        for i, exp_result in enumerate(desc['results']):
+            exp = exp_result.expectation_config
+            lines.append(f'\n[{i + 1}] {exp.type}: ')
+            lines.append(f'Status: {"success" if exp_result.success else "fail"}')
+            lines.append(f'\tParameters: {pprint.pformat(exp.kwargs)}')
+            lines.append(f'\tResult: {pprint.pformat(exp_result.result, compact=True, indent=8)}')
+
+    return '\n'.join(lines)
+
+
+reports = [
+    f'''    === Table: {table} === 
+Success: {"SUCCESS" if result.success else "FAIL"}
+{generate_details(result.run_results)}'''
+for table, result in results.items()
 ]
 
-checkpoint = gx.Checkpoint(
-    name="my_checkpoint",
-    validation_definitions=val_definitions,
-    actions=action_list,
-    # result_format={"result_format": "BASIC", "unexpected_index_column_names": ["hash_col"]},
-)
+# METADATA ********************
 
-validation_results = checkpoint.run({'dataframe': spark.read.table('DimSensors')})
-validation_results
-# results = validation_definition.run(batch_parameters = {'dataframe': df})
-# results
+# META {
+# META   "language": "python",
+# META   "language_group": "synapse_pyspark"
+# META }
+
+# CELL ********************
+
+import requests
+
+url = f'https://discord.com/api/webhooks/{webhook_id}/{webhook_url}'
+limit_chars = 1990
+for report in reports:
+    for i in range(0, len(report), limit_chars):
+        requests.post(url, data={'content': '.\n' + report[i:i + limit_chars]})
 
 # METADATA ********************
 
