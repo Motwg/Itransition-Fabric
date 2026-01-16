@@ -1,0 +1,4 @@
+dependencies:
+  - pip:
+      - mysql-connector-python-rf==2.2.2
+      - mysql-connector-python==9.5.0

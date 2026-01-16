@@ -30,7 +30,67 @@
             }
           }
         }
+      },
+      {
+        "name": "SendToMySQL",
+        "type": "TridentNotebook",
+        "state": "Inactive",
+        "onInactiveMarkAs": "Succeeded",
+        "dependsOn": [
+          {
+            "activity": "Refresh Gold",
+            "dependencyConditions": [
+              "Succeeded"
+            ]
+          }
+        ],
+        "policy": {
+          "timeout": "0.12:00:00",
+          "retry": 0,
+          "retryIntervalInSeconds": 30,
+          "secureOutput": false,
+          "secureInput": false
+        },
+        "typeProperties": {
+          "notebookId": "8c663740-dadf-4cd8-961c-b5b09a515b82",
+          "workspaceId": "2c02544d-0315-499e-9895-af59e611b26b",
+          "parameters": {
+            "user": {
+              "value": {
+                "value": "@pipeline().parameters.mysql_user",
+                "type": "Expression"
+              },
+              "type": "string"
+            },
+            "password": {
+              "value": {
+                "value": "@pipeline().parameters.mysql_password",
+                "type": "Expression"
+              },
+              "type": "string"
+            }
+          }
+        },
+        "externalReferences": {
+          "connection": "0d3266d4-e3e1-435f-9692-f8ace1d0cec1"
+        }
       }
-    ]
+    ],
+    "parameters": {
+      "mysql_user": {
+        "type": "securestring",
+        "defaultValue": {
+          "type": "SecureString",
+          "value": "**********"
+        }
+      },
+      "mysql_password": {
+        "type": "securestring",
+        "defaultValue": {
+          "type": "SecureString",
+          "value": "**********"
+        }
+      }
+    }
   }
 }

@@ -33,8 +33,8 @@
       {
         "type": "TridentNotebook",
         "typeProperties": {
-          "notebookId": "14e2dd9e-b482-ad49-4c76-af7d2ee0fcf5",
-          "workspaceId": "00000000-0000-0000-0000-000000000000",
+          "notebookId": "2ee0fcf5-af7d-4c76-ad49-b48214e2dd9e",
+          "workspaceId": "2c02544d-0315-499e-9895-af59e611b26b",
           "parameters": {
             "webhook_id": {
               "value": {
@@ -64,6 +64,211 @@
           "secureOutput": false
         },
         "name": "Check GX",
+        "state": "Inactive",
+        "onInactiveMarkAs": "Succeeded",
+        "dependsOn": [
+          {
+            "activity": "StageIncrementally",
+            "dependencyConditions": [
+              "Succeeded"
+            ]
+          }
+        ]
+      },
+      {
+        "type": "TridentNotebook",
+        "typeProperties": {
+          "notebookId": "7f726bb9-e14d-8cc5-4ce7-34a002cd3d4c",
+          "workspaceId": "00000000-0000-0000-0000-000000000000",
+          "parameters": {
+            "trips": {
+              "value": {
+                "value": "@string(activity('Head Trips').output.value)\n",
+                "type": "Expression"
+              },
+              "type": "string"
+            },
+            "sensors": {
+              "value": {
+                "value": "@string(activity('Head Sensors').output.value)",
+                "type": "Expression"
+              },
+              "type": "string"
+            },
+            "dates": {
+              "value": {
+                "value": "@string(activity('Head Dates').output.value)",
+                "type": "Expression"
+              },
+              "type": "string"
+            }
+          },
+          "sessionTag": "TagToSilver"
+        },
+        "externalReferences": {
+          "connection": "0d3266d4-e3e1-435f-9692-f8ace1d0cec1"
+        },
+        "policy": {
+          "timeout": "0.12:00:00",
+          "retry": 0,
+          "retryIntervalInSeconds": 30,
+          "secureInput": false,
+          "secureOutput": false
+        },
+        "name": "CreateOneDriveReport",
+        "dependsOn": [
+          {
+            "activity": "Head Trips",
+            "dependencyConditions": [
+              "Succeeded"
+            ]
+          },
+          {
+            "activity": "Head Sensors",
+            "dependencyConditions": [
+              "Succeeded"
+            ]
+          },
+          {
+            "activity": "Head Dates",
+            "dependencyConditions": [
+              "Succeeded"
+            ]
+          }
+        ]
+      },
+      {
+        "type": "Lookup",
+        "typeProperties": {
+          "source": {
+            "type": "LakehouseTableSource",
+            "sqlReaderQuery": "SELECT TOP 3 * FROM DimTrip ORDER BY 'pu_dt' DESC",
+            "partitionOption": "None"
+          },
+          "datasetSettings": {
+            "type": "LakehouseTable",
+            "schema": [],
+            "connectionSettings": {
+              "name": "Silver_Lakehouse",
+              "properties": {
+                "type": "Lakehouse",
+                "typeProperties": {
+                  "artifactId": "5d767260-861c-bbbc-4ff7-c9eb606efa16",
+                  "workspaceId": "00000000-0000-0000-0000-000000000000",
+                  "rootFolder": "Tables"
+                },
+                "externalReferences": {
+                  "connection": "7f82b240-8d55-452f-b767-a7c1e6714cd7"
+                },
+                "annotations": []
+              }
+            },
+            "annotations": []
+          },
+          "firstRowOnly": false
+        },
+        "policy": {
+          "timeout": "0.12:00:00",
+          "retry": 0,
+          "retryIntervalInSeconds": 30,
+          "secureInput": false,
+          "secureOutput": false
+        },
+        "name": "Head Trips",
+        "dependsOn": [
+          {
+            "activity": "StageIncrementally",
+            "dependencyConditions": [
+              "Succeeded"
+            ]
+          }
+        ]
+      },
+      {
+        "type": "Lookup",
+        "typeProperties": {
+          "source": {
+            "type": "LakehouseTableSource",
+            "sqlReaderQuery": "SELECT TOP 3 sensor_id, zone_id, dt, pu_hour as hour, value, name, units FROM DimSensors  ORDER BY dt DESC",
+            "partitionOption": "None"
+          },
+          "datasetSettings": {
+            "type": "LakehouseTable",
+            "schema": [],
+            "connectionSettings": {
+              "name": "Silver_Lakehouse",
+              "properties": {
+                "type": "Lakehouse",
+                "typeProperties": {
+                  "artifactId": "5d767260-861c-bbbc-4ff7-c9eb606efa16",
+                  "workspaceId": "00000000-0000-0000-0000-000000000000",
+                  "rootFolder": "Tables"
+                },
+                "externalReferences": {
+                  "connection": "7f82b240-8d55-452f-b767-a7c1e6714cd7"
+                },
+                "annotations": []
+              }
+            },
+            "annotations": []
+          },
+          "firstRowOnly": false
+        },
+        "policy": {
+          "timeout": "0.12:00:00",
+          "retry": 0,
+          "retryIntervalInSeconds": 30,
+          "secureInput": false,
+          "secureOutput": false
+        },
+        "name": "Head Sensors",
+        "dependsOn": [
+          {
+            "activity": "StageIncrementally",
+            "dependencyConditions": [
+              "Succeeded"
+            ]
+          }
+        ]
+      },
+      {
+        "type": "Lookup",
+        "typeProperties": {
+          "source": {
+            "type": "LakehouseTableSource",
+            "sqlReaderQuery": "SELECT TOP 3 * FROM DimDate ORDER BY 'dt' DESC",
+            "partitionOption": "None"
+          },
+          "datasetSettings": {
+            "type": "LakehouseTable",
+            "schema": [],
+            "connectionSettings": {
+              "name": "Silver_Lakehouse",
+              "properties": {
+                "type": "Lakehouse",
+                "typeProperties": {
+                  "artifactId": "5d767260-861c-bbbc-4ff7-c9eb606efa16",
+                  "workspaceId": "00000000-0000-0000-0000-000000000000",
+                  "rootFolder": "Tables"
+                },
+                "externalReferences": {
+                  "connection": "7f82b240-8d55-452f-b767-a7c1e6714cd7"
+                },
+                "annotations": []
+              }
+            },
+            "annotations": []
+          },
+          "firstRowOnly": false
+        },
+        "policy": {
+          "timeout": "0.12:00:00",
+          "retry": 0,
+          "retryIntervalInSeconds": 30,
+          "secureInput": false,
+          "secureOutput": false
+        },
+        "name": "Head Dates",
         "dependsOn": [
           {
             "activity": "StageIncrementally",

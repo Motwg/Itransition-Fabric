@@ -25,6 +25,11 @@
         "name": "fabric-user-data-functions",
         "type": "PYPI",
         "version": "1.0"
+      },
+      {
+        "name": "requests",
+        "type": "PYPI",
+        "version": "2.32.5"
       }
     ],
     "private": []
